@@ -74,7 +74,7 @@ struct WebService {
 
             let category: Category = {
                 let results = self.categories.filter {
-                    $0.rawValue.camelCase() == categoryTitle.camelCase()
+                    $0.rawValue.camelCase().lowercased() == categoryTitle.camelCase().lowercased()
                 }
                 if !results.isEmpty {
                     return results.first!
@@ -90,7 +90,7 @@ struct WebService {
 
             let brand: Brand = {
                 let results = self.brands.filter {
-                    $0.rawValue.camelCase() == brandName.camelCase()
+                    $0.rawValue.camelCase().lowercased() == brandName.camelCase().lowercased()
                 }
                 if !results.isEmpty {
                     return results.first!
