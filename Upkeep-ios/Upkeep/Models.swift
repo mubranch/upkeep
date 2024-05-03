@@ -46,7 +46,7 @@ final class Appliance: Identifiable {
     var purchaseDate: Date
     var warrantyExpirationDate: Date
     var lastMaintenaceDate: Date
-    var symbol: String
+    var symbol: ApplianceSymbol
     var manuals: [Manual]
 
     init(name: String = "Refrigerator",
@@ -57,7 +57,7 @@ final class Appliance: Identifiable {
          purchaseDate: Date = Date(),
          warrantyExpirationDate: Date = Date(),
          lastMaintenaceDate: Date = Date(),
-         symbol: String = "refrigerator",
+         symbol: ApplianceSymbol? = nil,
          manuals: [Manual] = [Manual]())
     {
         self.name = name
@@ -68,7 +68,7 @@ final class Appliance: Identifiable {
         self.purchaseDate = purchaseDate
         self.warrantyExpirationDate = warrantyExpirationDate
         self.lastMaintenaceDate = lastMaintenaceDate
-        self.symbol = symbol
+        self.symbol = symbol != nil ? symbol! : type.symbol
         self.manuals = manuals
     }
 }
@@ -286,5 +286,100 @@ enum ApplianceSymbol: String, ApplianceEnumProtocol {
 
     var formattedRawValue: String {
         "Adherance to protocol ApplianceEnumProtocol not yet implemented"
+    }
+}
+
+extension ApplianceType {
+    var symbol: ApplianceSymbol {
+        switch self {
+        case .refrigerator:
+            return .refrigerator
+        case .oven:
+            return .oven
+        case .microwave:
+            return .microwave
+        case .dishwasher:
+            return .dishwasher
+        case .blender:
+            return .wrenchAndScrewdriverFill
+        case .toaster:
+            return .stove
+        case .coffeeMaker:
+            return .pc
+        case .foodProcessor:
+            return .display
+        case .mixer:
+            return .hifiSpeaker
+        case .electricKettle:
+            return .powerOutletTypeIFill
+        case .washingMachine:
+            return .washer
+        case .dryer:
+            return .dryer
+        case .iron:
+            return .wrenchAndScrewdriverFill
+        case .steamPress:
+            return .powerOutletTypeIFill
+        case .vacuumCleaner:
+            return .wrenchAndScrewdriverFill
+        case .steamCleaner:
+            return .videoProjector
+        case .carpetCleaner:
+            return .wrenchAndScrewdriverFill
+        case .floorPolisher:
+            return .wrenchAndScrewdriverFill
+        case .airConditioner:
+            return .airPurifier
+        case .heater:
+            return .verticalHeater
+        case .humidifier:
+            return .humidifier
+        case .dehumidifier:
+            return .dehumidifier
+        case .fan:
+            return .wrenchAndScrewdriverFill
+        case .airPurifier:
+            return .airPurifier
+        case .hairDryer:
+            return .wrenchAndScrewdriverFill
+        case .electricShaver:
+            return .wrenchAndScrewdriverFill
+        case .electricToothbrush:
+            return .wrenchAndScrewdriverFill
+        case .hairStraightener:
+            return .wrenchAndScrewdriverFill
+        case .curlingIron:
+            return .wrenchAndScrewdriverFill
+        case .television:
+            return .display
+        case .homeTheaterSystem:
+            return .hifiSpeaker
+        case .soundbar:
+            return .hifiSpeaker
+        case .dvdPlayer:
+            return .wrenchAndScrewdriverFill
+        case .gamingConsole:
+            return .gameController
+        case .computer:
+            return .pc
+        case .printer:
+            return .printer
+        case .scanner:
+            return .scanner
+        case .faxMachine:
+            return .faxMachine
+        case .garbageDisposal:
+            return .wrenchAndScrewdriverFill
+        case .waterHeater:
+            return .powerOutletTypeIFill
+        case .sewingMachine:
+            return .wrenchAndScrewdriverFill
+        case .electricFireplace:
+            return .powerOutletTypeIFill
+        case .electricBlanket:
+            return .wrenchAndScrewdriverFill
+        case .generic:
+            return .wrenchAndScrewdriverFill
+        }
     }
 }

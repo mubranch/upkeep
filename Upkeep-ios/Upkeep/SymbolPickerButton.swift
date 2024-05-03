@@ -16,7 +16,7 @@ struct SymbolPickerButton: View {
                 .fill(.background)
                 .aspectRatio(1, contentMode: .fit)
 
-            Image(systemName: appliance.symbol)
+            Image(systemName: appliance.symbol.rawValue)
                 .resizable()
                 .scaledToFit()
                 .symbolVariant(.fill)

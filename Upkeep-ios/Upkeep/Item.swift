@@ -10,14 +10,13 @@ import SwiftData
 import SwiftUI
 
 struct ItemSymbol: View {
-    let symbol: String
-    let color: Color
+    @Bindable var appliance: Appliance
 
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(color.gradient)
-            Image(systemName: symbol)
+                .fill(appliance.brand.rawValue.hashedToColor().gradient)
+            appliance.symbol.image
                 .resizable()
                 .symbolVariant(.fill)
                 .foregroundStyle(.white)
@@ -35,10 +34,10 @@ struct Item: View {
 
     var body: some View {
         HStack(spacing: 20) {
-            ItemSymbol(symbol: appliance.symbol, color: appliance.brand.rawValue.hashedToColor())
+            ItemSymbol(appliance: appliance)
 
             VStack(alignment: .leading) {
-                Text(appliance.brand.rawValue)
+                Text(appliance.brand.formattedRawValue)
                     .font(.system(.caption, weight: .bold))
                     .textCase(.uppercase)
                     .foregroundStyle(.secondary)

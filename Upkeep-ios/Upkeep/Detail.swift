@@ -80,6 +80,8 @@ struct Detail: View {
             }
             LabeledContent(Design.Appliance.typeLabel) {
                 TogglePicker(selection: $model.type)
+            }.onChange(of: model.type) {
+                model.symbol = model.type.symbol
             }
             LabeledContent(Design.Appliance.modelNumberLabel) {
                 ToggleTextField(text: $model.modelNumber)
@@ -139,6 +141,6 @@ enum Design {
     let container = try! ModelContainer(for: Appliance.self, Manual.self, configurations: .init(isStoredInMemoryOnly: true))
     let app = Appliance()
     container.mainContext.insert(app)
-    return Detail(model: app, type: .existing)
+    return Detail(model: app, type: .new)
         .modelContainer(container)
 }
