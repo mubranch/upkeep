@@ -26,10 +26,10 @@ struct Home: View {
                 }
 
             // Test By Populating Data
-            Test()
-                .tabItem {
-                    Label("Test", systemImage: "testtube.2")
-                }
+//            Test()
+//                .tabItem {
+//                    Label("Test", systemImage: "testtube.2")
+//                }
         }
     }
 }
