@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct Interstitial: View {
+    @Environment(\.dismiss) var dismiss
     @State private var brand: ApplianceBrand = .generic
-    @State private var modelNumber: String = ""
+    @State private var modelNumber: String = "KRFF577KPS"
     @State private var isFetching = false
     @Binding var model: Appliance?
 
@@ -27,11 +28,22 @@ struct Interstitial: View {
                     TextField("Model Number", text: $modelNumber)
 
                 }.toolbar {
+                    ToolbarItem(placement: .topBarLeading, content: {
+                        DismissButton()
+                    })
+
                     ToolbarItem(placement: .primaryAction, content: {
                         Button("Search", action: {
-                            isFetching = true
+                            if modelNumber.isEmpty {
+                                model = .init()
+                            } else {
+                                isFetching = true
+                            }
                         })
                     })
+                }
+                .onChange(of: model) {
+                    dismiss()
                 }
             } else {
                 ProgressView()
@@ -49,7 +61,7 @@ struct Interstitial: View {
                         }.value
                     }
             }
-        }
+        }.presentationDetents([.fraction(0.35)])
     }
 }
 

@@ -66,9 +66,8 @@ struct SymbolPicker: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     // Dismiss button in the navigation bar leading position
-                    Button("Dismiss") {
-                        dismiss()
-                    }
+
+                    DismissButton()
                 }
             }
         }

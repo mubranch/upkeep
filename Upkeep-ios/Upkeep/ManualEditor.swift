@@ -33,9 +33,7 @@ struct ManualEditor: View {
             .scrollContentBackground(.hidden)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Dismiss") {
-                        dismiss()
-                    }
+                    DismissButton()
                 }
             }
         }

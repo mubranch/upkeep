@@ -51,9 +51,7 @@ struct Detail: View {
     @ToolbarContentBuilder
     var newModelToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            Button("Dismiss") {
-                dismiss()
-            }
+            DismissButton()
         }
         
         ToolbarItem(placement: .primaryAction) {
