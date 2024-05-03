@@ -28,7 +28,7 @@ struct WebService {
 
     @MainActor
     func fetchAppliance(brand: ApplianceBrand, modelNumber: String) async throws -> Appliance {
-        guard let url = URL(string: endpoint + "/test") else {
+        guard let url = URL(string: endpoint + "/\(brand.rawValue)/\(modelNumber)") else {
             throw URLError(.badURL)
         }
 

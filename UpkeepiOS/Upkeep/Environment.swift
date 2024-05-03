@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 private struct WebServiceEndpoint: EnvironmentKey {
-    static let defaultValue: String = "https://upkeepwebservice-30bd10389427.herokuapp.com/"
+    static let defaultValue: String = "https://upkeepwebservice-30bd10389427.herokuapp.com"
 }
 
 extension EnvironmentValues {
