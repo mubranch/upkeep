@@ -49,7 +49,7 @@ final class Appliance: Identifiable {
     var symbol: ApplianceSymbol
     var manuals: [Manual]
 
-    init(name: String = "Refrigerator",
+    init(name: String? = nil,
          type: ApplianceType = ApplianceType.allCases.randomElement()!,
          brand: ApplianceBrand? = ApplianceBrand.allCases.randomElement()!,
          modelNumber: String? = "00000000",
@@ -60,7 +60,7 @@ final class Appliance: Identifiable {
          symbol: ApplianceSymbol? = nil,
          manuals: [Manual] = [Manual]())
     {
-        self.name = name
+        self.name = name != nil ? name! : type.formattedRawValue
         self.type = type
         self.brand = brand ?? ApplianceBrand.generic
         self.modelNumber = modelNumber ?? "00000000"
@@ -143,7 +143,7 @@ enum ApplianceBrand: String, ApplianceEnumProtocol {
     case electrolux = "Electrolux"
     case frigidaire = "Frigidaire"
     case maytag = "Maytag"
-    case kitchenAid = "KitchenAid"
+    case kitchenaid = "KitchenAid"
     case panasonic = "Panasonic"
     case sharp = "Sharp"
     case haier = "Haier"
@@ -286,6 +286,35 @@ enum ApplianceSymbol: String, ApplianceEnumProtocol {
 
     var formattedRawValue: String {
         "Adherance to protocol ApplianceEnumProtocol not yet implemented"
+    }
+}
+
+extension String {
+    func camelCase() -> String {
+        let components = self.components(separatedBy: "_")
+        let camelCaseString = components.enumerated().map { index, component in
+            index == 0 ? component : component.capitalized
+        }.joined()
+        return camelCaseString
+    }
+}
+
+extension ApplianceBrand: CodingKey {
+    var stringValue: String {
+        return rawValue.camelCase()
+    }
+
+    init?(stringValue: String) {
+        // This initializer is not needed since we only encode to JSON
+        return nil
+    }
+
+    var intValue: Int? {
+        return nil
+    }
+
+    init?(intValue: Int) {
+        return nil
     }
 }
 

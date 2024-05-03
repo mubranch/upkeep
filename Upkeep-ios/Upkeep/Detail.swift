@@ -75,6 +75,7 @@ struct Detail: View {
             Section {
                 SymbolPickerButton(appliance: model)
             }
+            
             LabeledContent(Design.Appliance.brandLabel) {
                 TogglePicker(selection: $model.brand)
             }
@@ -86,17 +87,20 @@ struct Detail: View {
             LabeledContent(Design.Appliance.modelNumberLabel) {
                 ToggleTextField(text: $model.modelNumber)
             }
-            LabeledContent(Design.Appliance.lastMaintenanceLabel) {
-                ToggleDatePicker(selection: $model.lastMaintenaceDate)
-            }
-            LabeledContent(Design.Appliance.purchasedDateLabel) {
-                ToggleDatePicker(selection: $model.purchaseDate)
-            }
-            LabeledContent(Design.Appliance.warrantyExpirationLabel) {
-                ToggleDatePicker(selection: $model.purchaseDate)
-            }
             LabeledContent(Design.Appliance.serialNumberLabel) {
                 ToggleTextField(text: $model.serialNumber)
+            }
+            
+            Section {
+                LabeledContent(Design.Appliance.lastMaintenanceLabel) {
+                    ToggleDatePicker(selection: $model.lastMaintenaceDate)
+                }
+                LabeledContent(Design.Appliance.purchasedDateLabel) {
+                    ToggleDatePicker(selection: $model.purchaseDate)
+                }
+                LabeledContent(Design.Appliance.warrantyExpirationLabel) {
+                    ToggleDatePicker(selection: $model.warrantyExpirationDate)
+                }
             }
             Section(Design.Appliance.manualsLabel) {
                 ConditionalView(condition: !noSavedManuals, content: {
