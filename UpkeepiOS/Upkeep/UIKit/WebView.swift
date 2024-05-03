@@ -100,7 +100,7 @@ extension WebViewCoordinator: WKDownloadDelegate {
             let manual = Manual(name: "Test Manual", type: "Manual", file: data)
             parent.modelContext.insert(manual)
             parent.modelWasAdded = true
-            print("Manual created")
+//            print("Manual created")
             parent.closeFunction()
         }
 

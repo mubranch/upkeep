@@ -30,9 +30,8 @@ struct Home: View {
 
 #Preview {
     Home()
-        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self], inMemory: false) { result in
+        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self], inMemory: false) { _ in
             debugPrint("Container is ready")
-            print(result)
             let urlApp = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last
             let url = urlApp!.appendingPathComponent("default.store")
             if FileManager.default.fileExists(atPath: url.path) {
