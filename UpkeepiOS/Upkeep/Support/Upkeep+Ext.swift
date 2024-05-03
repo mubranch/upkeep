@@ -20,6 +20,16 @@ extension Date? {
     }
 }
 
+extension String {
+    func camelCase() -> String {
+        let components = self.components(separatedBy: "_")
+        let camelCaseString = components.enumerated().map { index, component in
+            index == 0 ? component : component.capitalized
+        }.joined()
+        return camelCaseString
+    }
+}
+
 extension View {
     @ViewBuilder
     func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {

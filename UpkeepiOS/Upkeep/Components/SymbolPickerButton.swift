@@ -21,7 +21,7 @@ struct SymbolPickerButton: View {
                 .scaledToFit()
                 .symbolVariant(.fill)
                 .padding()
-                .foregroundStyle(appliance.brand.rawValue.hashedToColor().gradient)
+                .foregroundStyle((appliance.brand?.name.hashedToColor() ?? Color.accentColor).gradient)
         }
         .frame(maxWidth: .infinity, maxHeight: 120)
         .onTapGesture {

@@ -19,11 +19,11 @@ struct SymbolPicker: View {
     @State private var searchText = ""
 
     // Computed property for search results based on search text
-    var searchResults: [ApplianceSymbol] {
+    var searchResults: [DefaultSymbols] {
         if searchText.isEmpty {
-            return ApplianceSymbol.allCases
+            return DefaultSymbols.allCases
         } else {
-            return ApplianceSymbol.allCases.filter {
+            return DefaultSymbols.allCases.filter {
                 $0.rawValue.lowercased().contains(searchText.lowercased())
             }
         }
@@ -52,7 +52,7 @@ struct SymbolPicker: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .padding()
                                 .background(Color(uiColor: .secondarySystemBackground))
-                                .foregroundStyle(appliance.brand.rawValue.hashedToColor().gradient)
+                                .foregroundStyle((appliance.brand?.name.hashedToColor() ?? Color.accentColor).gradient)
                                 .cornerRadius(15)
                         }
                         .buttonStyle(.plain)

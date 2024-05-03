@@ -51,12 +51,14 @@ struct Detail: View {
     @ToolbarContentBuilder
     var newModelToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            DismissButton()
+            Button("Dismiss") {
+                modelContext.delete(model)
+                dismiss()
+            }
         }
         
         ToolbarItem(placement: .primaryAction) {
             Button("Save") {
-                modelContext.insert(model)
                 dismiss()
             }
         }
@@ -75,13 +77,14 @@ struct Detail: View {
             }
             
             LabeledContent(Design.Appliance.brandLabel) {
-                TogglePicker(selection: $model.brand)
+                BrandTogglePicker(selection: $model.brand)
             }
             LabeledContent(Design.Appliance.typeLabel) {
-                TogglePicker(selection: $model.type)
-            }.onChange(of: model.type) {
-                model.symbol = model.type.symbol
+                CategoryTogglePicker(selection: $model.category)
+            }.onChange(of: model.category) {
+                model.symbol = model.category?.symbol ?? .wrenchAndScrewdriverFill
             }
+            
             LabeledContent(Design.Appliance.modelNumberLabel) {
                 ToggleTextField(text: $model.modelNumber)
             }
@@ -108,7 +111,11 @@ struct Detail: View {
                 })
                     
                 Button(Design.Appliance.browserButtonLabel) {
-                    self.urlWrapper = URLWrapper(url: URL(string: "https://www.manuallib.com/s/0-0-\(model.brand)-0-0.html"))
+                    if let brand = model.brand {
+                        self.urlWrapper = URLWrapper(url: URL(string: "https://www.manuallib.com/s/0-0-\(brand.name)-0-0.html"))
+                    } else {
+                        self.urlWrapper = URLWrapper(url: URL(string: "https://www.manuallib.com/"))
+                    }
                 }
             }
         }

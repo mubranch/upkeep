@@ -5,62 +5,74 @@
 //  Created by Mustafa on 5/2/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct Interstitial: View {
+    @Environment(\.modelContext) var modelContext
+    @Query(sort: \Brand.name) var brands: [Brand]
     @Environment(\.dismiss) var dismiss
-    @State private var brand: ApplianceBrand = .generic
+    @State private var brand: Brand?
     @State private var modelNumber: String = "KRFF577KPS"
     @State private var isFetching = false
     @Binding var model: Appliance?
-    let webService = WebService()
 
     var body: some View {
         NavigationStack {
-            if !isFetching {
-                List {
-                    Picker("Brand", selection: $brand) {
-                        ForEach(ApplianceBrand.allCases, id: \.rawValue) {
-                            Text($0.rawValue)
-                                .tag($0)
+            ZStack {
+                if !isFetching {
+                    List {
+                        LabeledContent("Brand") {
+                            Menu(brand?.name ?? brands.first?.name ?? "ERROR") {
+                                ForEach(brands, id: \.rawValue) { b in
+                                    Button(b.name) {
+                                        brand = b
+                                    }.tag(b)
+                                }
+                            }
                         }
-                    }
 
-                    TextField("Model Number", text: $modelNumber)
+                        TextField("Model Number", text: $modelNumber)
 
-                }.toolbar {
-                    ToolbarItem(placement: .topBarLeading, content: {
-                        DismissButton()
-                    })
-
-                    ToolbarItem(placement: .primaryAction, content: {
-                        Button("Search", action: {
-                            if modelNumber.isEmpty {
-                                model = .init()
-                            } else {
-                                isFetching = true
-                            }
+                    }.toolbar {
+                        ToolbarItem(placement: .topBarLeading, content: {
+                            DismissButton()
                         })
-                    })
-                }
-                .onChange(of: model) {
-                    dismiss()
-                }
-            } else {
-                ProgressView()
-                    .task {
-                        model = await Task {
-                            do {
-                                let obj = try await webService.fetchAppliance(brand: brand, modelNumber: modelNumber)
-                                isFetching = false
-                                return obj
-                            } catch {
-                                print(error)
-                                isFetching = false
-                                return nil
-                            }
-                        }.value
+
+                        ToolbarItem(placement: .primaryAction, content: {
+                            Button("Search", action: {
+                                if modelNumber.isEmpty {
+                                    model = .init()
+                                } else {
+                                    isFetching = true
+                                }
+                            })
+                        })
                     }
+                    .onChange(of: model) {
+                        dismiss()
+                    }
+                } else {
+                    ProgressView()
+                        .task { @MainActor in
+                            let webService = WebService(modelContext: modelContext)
+                            model = await Task {
+                                do {
+                                    if let brand = brand {
+                                        let obj = try await webService.fetchAppliance(brand: brand, modelNumber: modelNumber)
+                                        isFetching = false
+                                        return obj
+                                    } else {
+                                        return nil
+                                    }
+                                } catch {
+                                    print(error)
+                                    isFetching = false
+                                    return nil
+                                }
+                            }.value
+                        }
+                }
             }
         }.presentationDetents([.fraction(0.35)])
     }

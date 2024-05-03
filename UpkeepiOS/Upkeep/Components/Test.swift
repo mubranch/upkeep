@@ -31,6 +31,16 @@ struct Test: View {
                         }
                     }
                 }
+
+                Button("Create Brands and Categories") {
+                    for item in DefaultBrand.allCases {
+                        modelContext.insert(Brand(name: item.rawValue))
+                    }
+
+                    for item in DefaultCategory.allCases {
+                        modelContext.insert(Category(title: item.rawValue))
+                    }
+                }
             }
             .navigationTitle("Preview Controller")
         }

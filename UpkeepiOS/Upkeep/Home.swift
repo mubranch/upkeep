@@ -10,10 +10,6 @@ import SwiftData
 import SwiftUI
 
 struct Home: View {
-    @Query private var manuals: [Manual]
-    @Query private var appliances: [Appliance]
-    @Environment(\.modelContext) private var modelContext
-
     var body: some View {
         TabView {
             // Appliances
@@ -34,7 +30,7 @@ struct Home: View {
 
 #Preview {
     Home()
-        .modelContainer(for: [Appliance.self, Manual.self]) { result in
+        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self], inMemory: false) { result in
             debugPrint("Container is ready")
             print(result)
             let urlApp = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last

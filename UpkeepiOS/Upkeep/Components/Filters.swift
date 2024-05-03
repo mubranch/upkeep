@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 class FilterController: ObservableObject {
-    @Published var brands: Set<ApplianceBrand> = []
+    @Published var brands: Set<Brand> = []
 
     @Published var hasManuals: Bool? = nil
 
@@ -66,7 +66,11 @@ class FilterController: ObservableObject {
     }
 
     private func checkForBrand(_ appliance: Appliance) -> Bool {
-        if brands.contains(appliance.brand) {
+        guard let brand = appliance.brand else {
+            return false
+        }
+
+        if brands.contains(brand) {
             return true
         } else {
             return false
@@ -80,7 +84,7 @@ class FilterController: ObservableObject {
 }
 
 extension Sequence<Appliance> {
-    func extractBrands() -> [ApplianceBrand] {
+    func extractBrands() -> [Brand] {
         return Array(Set(compactMap { $0.brand })).sorted(by: {
             $0.rawValue > $1.rawValue
         })
@@ -92,7 +96,7 @@ struct BrandFilter: View {
     @StateObject private var filter = FilterController()
     @Binding var target: [Appliance]
 
-    var brands: [ApplianceBrand] {
+    var brands: [Brand] {
         appliances.extractBrands()
     }
 
@@ -103,7 +107,7 @@ struct BrandFilter: View {
                     $0 == brand
                 })
 
-                Button(brand.rawValue) {
+                Button(brand.name) {
                     withAnimation {
                         if !isSelected {
                             filter.brands.insert(brand)

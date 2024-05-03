@@ -15,7 +15,7 @@ struct ItemSymbol: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(appliance.brand.rawValue.hashedToColor().gradient)
+                .fill((appliance.brand?.name.hashedToColor() ?? Color.accentColor).gradient)
             appliance.symbol.image
                 .resizable()
                 .symbolVariant(.fill)
@@ -37,7 +37,7 @@ struct Item: View {
             ItemSymbol(appliance: appliance)
 
             VStack(alignment: .leading) {
-                Text(appliance.brand.formattedRawValue)
+                Text(appliance.brand?.name ?? "No Name")
                     .font(.system(.caption, weight: .bold))
                     .textCase(.uppercase)
                     .foregroundStyle(.secondary)
