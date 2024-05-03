@@ -19,7 +19,13 @@ struct Home: View {
                         .environment(\.symbolVariants, .none)
                 }
 
-            // Test View
+            // Configuration Settings
+            Settings()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape")
+                }
+
+            // Test By Populating Data
             Test()
                 .tabItem {
                     Label("Test", systemImage: "testtube.2")
@@ -30,12 +36,5 @@ struct Home: View {
 
 #Preview {
     Home()
-        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self], inMemory: false) { _ in
-            debugPrint("Container is ready")
-            let urlApp = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last
-            let url = urlApp!.appendingPathComponent("default.store")
-            if FileManager.default.fileExists(atPath: url.path) {
-                print("swiftdata db at \(url.absoluteString)")
-            }
-        }
+        .modelContainer(DataService.previewContainer())
 }

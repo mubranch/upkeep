@@ -14,40 +14,52 @@ struct SimpleFilter: View {
     @Binding var target: [Appliance]
     @Query var brands: [Brand]
 
-    var body: some View {
-        Menu {
-            ForEach(brands) { brand in
-                let isActive = filter.brands.contains(brand)
+    var brandsForModelsInContext: [Brand] {
+        appliances.compactMap {
+            if $0.brand != nil {
+                return $0.brand!
+            } else {
+                return nil
+            }
+        }
+    }
 
-                Button(action: { updateFilter(brand) }) {
-                    if isActive {
-                        Label(brand.name, systemImage: "checkmark")
-                    } else {
-                        Text(brand.name)
+    var body: some View {
+        if !brandsForModelsInContext.isEmpty {
+            Menu {
+                ForEach(brandsForModelsInContext) { brand in
+                    let isActive = filter.brands.contains(brand)
+
+                    Button(action: { updateFilter(brand) }) {
+                        if isActive {
+                            Label(brand.name, systemImage: "checkmark")
+                        } else {
+                            Text(brand.name)
+                        }
                     }
                 }
+
+                Divider()
+
+                Button("Clear", systemImage: "xmark") {
+                    updateFilter(.reset)
+                }
+            } label: {
+                Image(systemName: "line.3.horizontal.decrease")
+                    .symbolVariant(.circle)
             }
-
-            Divider()
-
-            Button("Clear", systemImage: "xmark") {
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.circle)
+            .padding(.leading)
+            .onChange(of: filter.hasManuals) {
+                updateFilter(.update)
+            }
+            .onChange(of: appliances, initial: true) {
                 updateFilter(.reset)
             }
-        } label: {
-            Image(systemName: "line.3.horizontal.decrease")
-                .symbolVariant(.circle)
-        }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.circle)
-        .padding(.leading)
-        .onChange(of: filter.hasManuals) {
-            updateFilter(.update)
-        }
-        .onChange(of: appliances, initial: true) {
-            updateFilter(.reset)
-        }
-        .onChange(of: filter.brands) {
-            updateFilter(.update)
+            .onChange(of: filter.brands) {
+                updateFilter(.update)
+            }
         }
     }
 

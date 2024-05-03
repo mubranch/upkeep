@@ -15,6 +15,6 @@ struct UpkeepApp: App {
         WindowGroup {
             Home()
         }
-        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self])
+        .modelContainer(DataService.persistentContainer())
     }
 }

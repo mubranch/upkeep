@@ -70,8 +70,6 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         if let mime = navigationResponse.response.mimeType {
-            print(mime)
-
             if mime == "application/pdf" {
                 decisionHandler(.download)
             } else {

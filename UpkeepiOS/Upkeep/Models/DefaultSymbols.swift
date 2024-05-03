@@ -9,8 +9,7 @@ import Foundation
 import SwiftUI
 
 // Enumeration representing appliance symbols
-enum DefaultSymbols: String, ApplianceEnumProtocol {
-    static var title = "Appliance Symbol"
+enum DefaultSymbols: String, CaseIterable, Codable {
     case oven
     case refrigerator
     case dishwasher

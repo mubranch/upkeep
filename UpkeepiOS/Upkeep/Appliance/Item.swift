@@ -42,6 +42,7 @@ struct Item: View {
                     .textCase(.uppercase)
                     .foregroundStyle(.secondary)
                     .fontDesign(.rounded)
+                    .lineLimit(1)
                 Text(appliance.name)
                     .font(.headline)
                 Text("Purchased on \(appliance.purchaseDate.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.extended())))")

@@ -45,7 +45,6 @@ class FilterController: ObservableObject {
     func reset(appliances: [Appliance]) -> [Appliance] {
         brands.removeAll()
         hasManuals = nil
-        print(brands)
         return appliances
     }
 

@@ -18,7 +18,7 @@ struct BrandTogglePicker: View {
             .foregroundStyle(Color.secondary)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
                 Menu(selection?.name.capitalized ?? brands.first?.name.capitalized ?? "Not Set") {
-                    ForEach(brands, id: \.rawValue) { b in
+                    ForEach(brands) { b in
                         Button(b.name.capitalized) {
                             selection = b
                         }.tag(b)
@@ -38,7 +38,7 @@ struct CategoryTogglePicker: View {
             .foregroundStyle(Color.secondary)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
                 Menu(selection?.title.capitalized ?? categories.first?.title.capitalized ?? "Not Set") {
-                    ForEach(categories, id: \.rawValue) { c in
+                    ForEach(categories) { c in
                         Button(c.title.capitalized) {
                             selection = c
                         }.tag(c)

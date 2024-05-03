@@ -41,7 +41,7 @@ final class Appliance: Identifiable {
         self.purchaseDate = purchaseDate
         self.warrantyExpirationDate = warrantyExpirationDate
         self.lastMaintenaceDate = lastMaintenaceDate
-        self.symbol = symbol != nil ? symbol! : .wrenchAndScrewdriverFill
+        self.symbol = symbol != nil ? symbol! : (category != nil ? category!.symbol : .wrenchAndScrewdriverFill)
         self.manuals = manuals
     }
 }
