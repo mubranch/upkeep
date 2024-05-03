@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // "Return only a JSON response for the given appliance: KitchenAid KRFF577KPS. The JSON should contain properties: name, type (in camelCase), brand (camelCase without punctuation), and modelNumber."
 
@@ -22,10 +23,12 @@ extension WebServiceCodable {
     }
 }
 
-enum WebService {
+struct WebService {
+    @Environment(\.webServiceEndpoint) var endpoint
+
     @MainActor
-    static func fetchAppliance(brand: ApplianceBrand, modelNumber: String) async throws -> Appliance {
-        guard let url = URL(string: "Some URL") else {
+    func fetchAppliance(brand: ApplianceBrand, modelNumber: String) async throws -> Appliance {
+        guard let url = URL(string: endpoint + "/test") else {
             throw URLError(.badURL)
         }
 
@@ -44,7 +47,7 @@ enum WebService {
     }
 
     @MainActor
-    static func fetchApplianceTest() async throws -> Appliance {
+    func fetchApplianceTest() async throws -> Appliance {
         let json = """
             {
                 "name":"KitchenAid KRFF577KPS",

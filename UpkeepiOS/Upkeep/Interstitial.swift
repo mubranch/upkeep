@@ -13,6 +13,7 @@ struct Interstitial: View {
     @State private var modelNumber: String = "KRFF577KPS"
     @State private var isFetching = false
     @Binding var model: Appliance?
+    let webService = WebService()
 
     var body: some View {
         NavigationStack {
@@ -50,7 +51,7 @@ struct Interstitial: View {
                     .task {
                         model = await Task {
                             do {
-                                let obj = try await WebService.fetchApplianceTest()
+                                let obj = try await webService.fetchAppliance(brand: brand, modelNumber: modelNumber)
                                 isFetching = false
                                 return obj
                             } catch {
