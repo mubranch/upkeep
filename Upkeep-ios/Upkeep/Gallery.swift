@@ -23,6 +23,7 @@ struct Gallery: View {
     @State private var filteredModel: [Appliance] = []
     @State private var selection: Appliance?
     @State private var newModel: Appliance?
+    @State private var isAddingNew = false
 
     var body: some View {
         NavigationStack {
@@ -44,6 +45,9 @@ struct Gallery: View {
 
                 ToolbarItem {
                     Button(Design.Gallery.addModelTitle, systemImage: Design.Gallery.addModelSymbol, action: self.generateAppliance)
+                        .sheet(isPresented: $isAddingNew, content: {
+                            Interstitial(model: $newModel)
+                        })
                         .sheet(item: self.$newModel) { model in
                             Detail(model: model, type: .new)
                         }
@@ -53,7 +57,7 @@ struct Gallery: View {
     }
 
     private func generateAppliance() {
-        self.newModel = Appliance()
+        isAddingNew.toggle()
     }
 
     private func deleteAppliance(indexSet: IndexSet) {

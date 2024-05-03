@@ -18,9 +18,7 @@ struct PDFViewer: View {
                 .navigationTitle(manual.name)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Dismiss") {
-                            dismiss()
-                        }
+                        DismissButton()
                     }
                 }
         }

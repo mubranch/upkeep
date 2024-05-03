@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A01FF53E2BE473AC005A5F63 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebService.swift */; };
+		A01FF53F2BE473AC005A5F63 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebService.swift */; };
+		A01FF5402BE473AC005A5F63 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebService.swift */; };
+		A01FF5422BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
+		A01FF5432BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
+		A01FF5442BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
+		A01FF5462BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
+		A01FF5472BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
+		A01FF5482BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
 		A02CFFAA2BE1987F0086B93B /* SymbolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */; };
 		A02CFFAB2BE1987F0086B93B /* SymbolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */; };
 		A02CFFAC2BE1987F0086B93B /* SymbolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */; };
@@ -101,6 +110,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A01FF53D2BE473AC005A5F63 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		A01FF5412BE4795A005A5F63 /* Interstitial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interstitial.swift; sourceTree = "<group>"; };
+		A01FF5452BE48623005A5F63 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPicker.swift; sourceTree = "<group>"; };
 		A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerButton.swift; sourceTree = "<group>"; };
 		A02CFFB12BE1F7110086B93B /* ToggleDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleDatePicker.swift; sourceTree = "<group>"; };
@@ -182,13 +194,15 @@
 		A04ED5B62BD72635007703DD /* Upkeep */ = {
 			isa = PBXGroup;
 			children = (
-				A04ED6092BDEFB09007703DD /* Item.swift */,
-				A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */,
 				A04ED6192BDF2246007703DD /* Browser.swift */,
+				A02CFFCD2BE3EFC80086B93B /* ConditionalView+Generic.swift */,
 				A04ED5F32BDC644B007703DD /* Detail.swift */,
+				A01FF5452BE48623005A5F63 /* DismissButton.swift */,
 				A04ED5FB2BDEE624007703DD /* Filters.swift */,
 				A04ED5EF2BDC402B007703DD /* Gallery.swift */,
 				A04ED5B92BD72635007703DD /* Home.swift */,
+				A01FF5412BE4795A005A5F63 /* Interstitial.swift */,
+				A04ED6092BDEFB09007703DD /* Item.swift */,
 				A04ED6112BDF220B007703DD /* ManualEditor.swift */,
 				A04ED6252BDF2A17007703DD /* ManualItem.swift */,
 				A04ED5ED2BD73E36007703DD /* Models.swift */,
@@ -196,6 +210,7 @@
 				A04ED61D2BDF2375007703DD /* PDFViewer.swift */,
 				A04ED62D2BDF510C007703DD /* Resources */,
 				A02CFFC12BE2FE9B0086B93B /* SimpleFilter.swift */,
+				A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */,
 				A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */,
 				A02CFFBD2BE289D50086B93B /* Test.swift */,
 				A02CFFC92BE3201C0086B93B /* ToggleButton.swift */,
@@ -204,8 +219,8 @@
 				A02CFFB52BE1F7200086B93B /* ToggleTextField.swift */,
 				A04ED6212BDF2505007703DD /* Upkeep+Ext.swift */,
 				A04ED5B72BD72635007703DD /* UpkeepApp.swift */,
+				A01FF53D2BE473AC005A5F63 /* WebService.swift */,
 				A04ED60D2BDF21AE007703DD /* WebView.swift */,
-				A02CFFCD2BE3EFC80086B93B /* ConditionalView+Generic.swift */,
 			);
 			path = Upkeep;
 			sourceTree = "<group>";
@@ -376,6 +391,7 @@
 			files = (
 				A04ED5EE2BD73E36007703DD /* Models.swift in Sources */,
 				A02CFFBE2BE289D50086B93B /* Test.swift in Sources */,
+				A01FF5462BE48623005A5F63 /* DismissButton.swift in Sources */,
 				A04ED60A2BDEFB09007703DD /* Item.swift in Sources */,
 				A02CFFAA2BE1987F0086B93B /* SymbolPicker.swift in Sources */,
 				A04ED6262BDF2A17007703DD /* ManualItem.swift in Sources */,
@@ -392,8 +408,10 @@
 				A04ED61A2BDF2246007703DD /* Browser.swift in Sources */,
 				A04ED60E2BDF21AE007703DD /* WebView.swift in Sources */,
 				A02CFFC22BE2FE9B0086B93B /* SimpleFilter.swift in Sources */,
+				A01FF53E2BE473AC005A5F63 /* WebService.swift in Sources */,
 				A02CFFB62BE1F7200086B93B /* ToggleTextField.swift in Sources */,
 				A02CFFAE2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
+				A01FF5422BE4795A005A5F63 /* Interstitial.swift in Sources */,
 				A04ED5FC2BDEE624007703DD /* Filters.swift in Sources */,
 				A04ED61E2BDF2375007703DD /* PDFViewer.swift in Sources */,
 				A04ED5F02BDC402B007703DD /* Gallery.swift in Sources */,
@@ -417,6 +435,8 @@
 				A02CFFAF2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
 				A04ED5CB2BD72639007703DD /* UpkeepTests.swift in Sources */,
 				A04ED6132BDF220B007703DD /* ManualEditor.swift in Sources */,
+				A01FF5432BE4795A005A5F63 /* Interstitial.swift in Sources */,
+				A01FF53F2BE473AC005A5F63 /* WebService.swift in Sources */,
 				A04ED6032BDEF9A1007703DD /* Detail.swift in Sources */,
 				A04ED6172BDF222A007703DD /* PDFKit.swift in Sources */,
 				A04ED6022BDEF99C007703DD /* Gallery.swift in Sources */,
@@ -426,6 +446,7 @@
 				A02CFFC32BE2FE9B0086B93B /* SimpleFilter.swift in Sources */,
 				A02CFFBF2BE289F20086B93B /* Test.swift in Sources */,
 				A04ED5FD2BDEE6FA007703DD /* Filters.swift in Sources */,
+				A01FF5472BE48623005A5F63 /* DismissButton.swift in Sources */,
 				A04ED61F2BDF2375007703DD /* PDFViewer.swift in Sources */,
 				A04ED6072BDEF9A7007703DD /* Home.swift in Sources */,
 			);
@@ -435,6 +456,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01FF5402BE473AC005A5F63 /* WebService.swift in Sources */,
 				A0D66B442BE152BA0045AE66 /* UpkeepApp.swift in Sources */,
 				A02CFFC42BE2FE9B0086B93B /* SimpleFilter.swift in Sources */,
 				A02CFFCC2BE3201C0086B93B /* ToggleButton.swift in Sources */,
@@ -445,8 +467,10 @@
 				A02CFFAC2BE1987F0086B93B /* SymbolPicker.swift in Sources */,
 				A02CFFBC2BE1F7390086B93B /* TogglePicker+Generic.swift in Sources */,
 				A02CFFB02BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
+				A01FF5442BE4795A005A5F63 /* Interstitial.swift in Sources */,
 				A04ED5D52BD72639007703DD /* UpkeepUITests.swift in Sources */,
 				A02CFFD02BE3EFC80086B93B /* ConditionalView+Generic.swift in Sources */,
+				A01FF5482BE48623005A5F63 /* DismissButton.swift in Sources */,
 				A04ED6182BDF222A007703DD /* PDFKit.swift in Sources */,
 				A02CFFC02BE289F20086B93B /* Test.swift in Sources */,
 				A02CFFB82BE1F7210086B93B /* ToggleTextField.swift in Sources */,
