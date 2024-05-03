@@ -45,8 +45,7 @@ struct Item: View {
                     .lineLimit(1)
                 Text(appliance.name)
                     .font(.headline)
-                Text("Purchased on \(appliance.purchaseDate.formatted(.dateTime.day(.twoDigits).month(.twoDigits).year(.extended())))")
-                    .font(.system(.subheadline))
+                Text("\(appliance.modelNumber)")
                 HStack {
                     let fileCount = appliance.manuals.count
                     Image(systemName: "folder")
