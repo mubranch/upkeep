@@ -59,8 +59,6 @@ struct WebService {
                 throw NSError(domain: "InvalidData", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON data"])
             }
 
-            print(jsonObject)
-
             // Decode each key individually
             guard let name = jsonObject["name"] as? String else {
                 print("Missing Data")
@@ -74,8 +72,19 @@ struct WebService {
 
             let category: Category = {
                 let results = self.categories.filter {
+<<<<<<< HEAD
+                    let existIngCategory = $0.rawValue.camelCase() == categoryTitle.camelCase()
+                    if existIngCategory {
+                        print("Category exists")
+                        return true
+                    } else {
+                        return false
+                    }
+=======
                     $0.rawValue.camelCase().lowercased() == categoryTitle.camelCase().lowercased()
+>>>>>>> main
                 }
+
                 if !results.isEmpty {
                     return results.first!
                 } else {

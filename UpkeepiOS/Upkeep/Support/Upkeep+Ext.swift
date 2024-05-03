@@ -6,7 +6,18 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
+
+extension ModelContext {
+    var isEmpty: Bool {
+        var itemFetchDescriptor = FetchDescriptor<Brand>()
+        guard (try? fetch(itemFetchDescriptor).count) == 0 else {
+            return false
+        }
+        return true
+    }
+}
 
 extension String? {
     var unwrapped: String {
@@ -22,8 +33,9 @@ extension Date? {
 
 extension String {
     func camelCase() -> String {
-        let components = self.components(separatedBy: "_")
+        let components = lowercased().components(separatedBy: "_")
         let camelCaseString = components.enumerated().map { index, component in
+            // Capitalize all components except the first one
             index == 0 ? component : component.capitalized
         }.joined()
         return camelCaseString

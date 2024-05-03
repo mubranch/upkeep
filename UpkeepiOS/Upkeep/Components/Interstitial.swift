@@ -49,9 +49,6 @@ struct Interstitial: View {
                             })
                         })
                     }
-                    .onChange(of: model) {
-                        dismiss()
-                    }
                 } else {
                     ProgressView()
                         .task { @MainActor in
@@ -63,14 +60,20 @@ struct Interstitial: View {
                                         isFetching = false
                                         return obj
                                     } else {
+                                        // TODO: Update dismiss to show error to user
+                                        dismiss()
                                         return nil
                                     }
                                 } catch {
+                                    // TODO: Update dismiss to show error to user
                                     print(error)
-                                    isFetching = false
+                                    dismiss()
                                     return nil
                                 }
                             }.value
+                        }
+                        .onChange(of: model) {
+                            dismiss()
                         }
                 }
             }

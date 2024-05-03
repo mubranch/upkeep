@@ -18,7 +18,7 @@ final class Category: Identifiable, Codable {
     private var appliances: [Appliance] = []
 
     init(title: String) {
-        self.title = title
+        self.title = title.capitalized
     }
 
     var rawValue: String {

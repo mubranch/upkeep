@@ -16,29 +16,38 @@ struct Test: View {
         NavigationStack {
             List {
                 Button("Reset", systemImage: "arrow.circlepath") {
-                    modelContext.container.deleteAllData()
-                }
+                    self.modelContext.container.deleteAllData()
+                    DataService.addBrandsAndCategories(modelContext: self.modelContext)
+                }.disabled(modelContext.isEmpty)
+
                 Button("Populate", systemImage: "swiftdata") {
-                    for num in 0 ... Int.random(in: 0 ... 20) {
-                        let appliance = Appliance()
-                        modelContext.insert(appliance)
-                        if num % 2 == 0 {
-                            if let url = URL(string: "https://data2.manualslib.com/pdf7/330/32906/3290542-kitchenaid/krmf706ess.pdf?601e6ae19ee52c55d34e84d5d4616ea8"), let file = try? Data(contentsOf: url) {
-                                let manual = Manual(name: "\(appliance.name) \(appliance.id) Manual", type: "Manual", file: file)
-                                modelContext.insert(manual)
-                                manual.appliance = appliance
+                    Task { @MainActor in
+                        let fetchRequest = FetchDescriptor<Category>()
+                        let categories = (try? self.modelContext.fetch(fetchRequest)) ?? []
+
+                        let fetchRequest2 = FetchDescriptor<Brand>()
+                        let brands = (try? self.modelContext.fetch(fetchRequest2)) ?? []
+
+                        for num in 0 ... Int.random(in: 0 ... 3) {
+                            if let category = categories.randomElement(),
+                               let brand = brands.randomElement()
+                            {
+                                let appliance = Appliance(name: "\(brand.name) \(category.title)",
+                                                          category: category,
+                                                          brand: brand,
+                                                          modelNumber: "\(Int.random(in: 111111 ... 99999999))")
+
+                                self.modelContext.insert(appliance)
+
+                                if num % 2 == 0 {
+                                    if let url = URL(string: "https://data2.manualslib.com/pdf7/330/32906/3290542-kitchenaid/krmf706ess.pdf?601e6ae19ee52c55d34e84d5d4616ea8"), let file = try? Data(contentsOf: url) {
+                                        let manual = Manual(name: "\(appliance.name) \(appliance.id) Manual", type: "Manual", file: file)
+                                        self.modelContext.insert(manual)
+                                        manual.appliance = appliance
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-
-                Button("Create Brands and Categories") {
-                    for item in DefaultBrand.allCases {
-                        modelContext.insert(Brand(name: item.rawValue))
-                    }
-
-                    for item in DefaultCategory.allCases {
-                        modelContext.insert(Category(title: item.rawValue))
                     }
                 }
             }

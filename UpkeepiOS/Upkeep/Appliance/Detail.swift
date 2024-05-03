@@ -79,6 +79,7 @@ struct Detail: View {
             LabeledContent(Design.Appliance.brandLabel) {
                 BrandTogglePicker(selection: $model.brand)
             }
+            
             LabeledContent(Design.Appliance.typeLabel) {
                 CategoryTogglePicker(selection: $model.category)
             }.onChange(of: model.category, initial: true) {
