@@ -42,7 +42,7 @@ struct SymbolPicker: View {
                     ForEach(searchResults, id: \.self) { symbol in
                         Button(action: {
                             // Set selected symbol to the appliance and dismiss the view
-                            appliance.symbol = symbol.rawValue
+                            appliance.symbol = symbol
                             dismiss()
                         }) {
                             symbol.image
