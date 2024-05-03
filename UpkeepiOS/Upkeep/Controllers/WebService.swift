@@ -72,6 +72,7 @@ struct WebService {
 
             let category: Category = {
                 let results = self.categories.filter {
+<<<<<<< HEAD
                     let existIngCategory = $0.rawValue.camelCase() == categoryTitle.camelCase()
                     if existIngCategory {
                         print("Category exists")
@@ -79,6 +80,9 @@ struct WebService {
                     } else {
                         return false
                     }
+=======
+                    $0.rawValue.camelCase().lowercased() == categoryTitle.camelCase().lowercased()
+>>>>>>> main
                 }
 
                 if !results.isEmpty {
@@ -95,7 +99,7 @@ struct WebService {
 
             let brand: Brand = {
                 let results = self.brands.filter {
-                    $0.rawValue.camelCase() == brandName.camelCase()
+                    $0.rawValue.camelCase().lowercased() == brandName.camelCase().lowercased()
                 }
                 if !results.isEmpty {
                     return results.first!

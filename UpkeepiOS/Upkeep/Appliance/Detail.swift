@@ -82,7 +82,7 @@ struct Detail: View {
             
             LabeledContent(Design.Appliance.typeLabel) {
                 CategoryTogglePicker(selection: $model.category)
-            }.onChange(of: model.category) {
+            }.onChange(of: model.category, initial: true) {
                 model.symbol = model.category?.symbol ?? .wrenchAndScrewdriverFill
             }
             
