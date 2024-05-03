@@ -50,7 +50,7 @@ final class Appliance: Identifiable {
     var manuals: [Manual]
 
     init(name: String = "Refrigerator",
-         type: ApplianceType = .refrigerator,
+         type: ApplianceType = ApplianceType.allCases.randomElement()!,
          brand: ApplianceBrand? = ApplianceBrand.allCases.randomElement()!,
          modelNumber: String? = "00000000",
          serialNumber: String? = "00000000",
