@@ -24,12 +24,6 @@ struct Home: View {
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
-
-            // Test view for populating data
-//            Test()
-//                .tabItem {
-//                    Label("Test", systemImage: "testtube.2")
-//                }
         }
     }
 }

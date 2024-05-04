@@ -230,8 +230,8 @@
 			children = (
 				A04ED6192BDF2246007703DD /* Browser.swift */,
 				A01FF5452BE48623005A5F63 /* DismissButton.swift */,
-				A01FF5412BE4795A005A5F63 /* QuickCreate.swift */,
 				A04ED61D2BDF2375007703DD /* PDFViewer.swift */,
+				A01FF5412BE4795A005A5F63 /* QuickCreate.swift */,
 				A02CFFC12BE2FE9B0086B93B /* SimpleFilter.swift */,
 				A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */,
 				A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */,
@@ -247,8 +247,8 @@
 		A01FF54F2BE4CA90005A5F63 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				A04ED60D2BDF21AE007703DD /* WebView.swift */,
 				A04ED6152BDF222A007703DD /* PDFKit.swift */,
+				A04ED60D2BDF21AE007703DD /* WebView.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -256,11 +256,11 @@
 		A01FF5502BE4CAAB005A5F63 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				A01FF5532BE4CB74005A5F63 /* ApplianceEnumProtocol.swift */,
 				A02CFFCD2BE3EFC80086B93B /* ConditionalView+Generic.swift */,
+				A01FF5822BE5A854005A5F63 /* Copy.swift */,
 				A01FF5492BE4A39B005A5F63 /* Environment.swift */,
 				A04ED6212BDF2505007703DD /* Upkeep+Ext.swift */,
-				A01FF5532BE4CB74005A5F63 /* ApplianceEnumProtocol.swift */,
-				A01FF5822BE5A854005A5F63 /* Copy.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -268,9 +268,9 @@
 		A01FF5512BE4CAC8005A5F63 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */,
 				A01FF57E2BE55F5A005A5F63 /* DataController.swift */,
 				A01FF5842BE5ACB8005A5F63 /* FilterController.swift */,
+				A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

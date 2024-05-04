@@ -17,6 +17,16 @@ struct DataController {
     var persistenConfiguration: ModelConfiguration = .init(isStoredInMemoryOnly: false)
     
     @MainActor
+    func previewContainer() -> ModelContainer {
+        return createContainerWithRetry(configuration: previewConfiguration)
+    }
+    
+    @MainActor
+    func persistentContainer() -> ModelContainer {
+        return createContainerWithRetry(configuration: persistenConfiguration)
+    }
+    
+    @MainActor
     func addBrandsAndCategories(container: ModelContainer) {
         let modelContext = container.mainContext
         
@@ -34,7 +44,7 @@ struct DataController {
     }
 
     @MainActor
-    func persistentContainer(_ container: ModelContainer? = nil, depth: Int = 0) -> ModelContainer {
+    func createContainerWithRetry(_ container: ModelContainer? = nil, configuration: ModelConfiguration, depth: Int = 0) -> ModelContainer {
         guard depth != 5 else {
             fatalError("Could not load model container.")
         }
@@ -45,33 +55,12 @@ struct DataController {
         }
         
         do {
-            let container = try ModelContainer(for: schema, configurations: previewConfiguration)
+            let container = try ModelContainer(for: schema, configurations: persistenConfiguration)
             addBrandsAndCategories(container: container)
             return container
         } catch {
             print(error.localizedDescription + " trying \(5 - (depth + 1)) more times")
-            return persistentContainer(depth: depth + 1)
-        }
-    }
-
-    @MainActor
-    func previewContainer(_ container: ModelContainer? = nil, depth: Int = 0) -> ModelContainer {
-        guard depth != 5 else {
-            fatalError("Could not load model container.")
-        }
-        
-        if container != nil {
-            addBrandsAndCategories(container: container!)
-            return container!
-        }
-        
-        do {
-            let container = try ModelContainer(for: schema, configurations: previewConfiguration)
-            addBrandsAndCategories(container: container)
-            return container
-        } catch {
-            print(error.localizedDescription + " trying \(5 - (depth + 1)) more times")
-            return previewContainer(depth: depth + 1)
+            return createContainerWithRetry(configuration: configuration, depth: depth + 1)
         }
     }
 }
