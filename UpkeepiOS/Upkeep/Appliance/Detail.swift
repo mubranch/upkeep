@@ -10,14 +10,17 @@ import SwiftData
 import SwiftUI
 
 struct Detail: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismissAction
     @Environment(\.editMode) var editMode
     @Environment(\.modelContext) var modelContext
-    @Bindable var model: Appliance
+    
+    @Bindable var appliance: Appliance
+    
     @State private var urlWrapper: URLWrapper? = nil
     
-    let type: ModelType
+    let modelType: ModelType
     
+    /// Enum for caller to set Detail view type
     enum ModelType {
         case new
         case existing
@@ -27,11 +30,13 @@ struct Detail: View {
         .dateTime.day().month(.wide).year(.extended())
     }
     
-    private var noSavedManuals: Bool { model.manuals.count == 0 }
+    private var hasManualsSaved: Bool {
+        !appliance.manuals.isEmpty
+    }
     
     var body: some View {
-        baseView
-            .if(type == .new) { view in
+        baseContent
+            .if(modelType == .new) { view in
                 NavigationStack {
                     view
                         .environment(\.editMode, .constant(.active))
@@ -40,7 +45,7 @@ struct Detail: View {
                         }
                 }
             }
-            .if(type == .existing) { view in
+            .if(modelType == .existing) { view in
                 view
                     .toolbar {
                         editToolbar
@@ -52,98 +57,95 @@ struct Detail: View {
     var newModelToolbar: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button("Dismiss") {
-                modelContext.delete(model)
-                dismiss()
+                modelContext.delete(appliance)
+                dismissAction()
             }
         }
         
         ToolbarItem(placement: .primaryAction) {
             Button("Save") {
-                dismiss()
+                dismissAction()
             }
         }
     }
     
     var editToolbar: some ToolbarContent {
-        ToolbarItem(placement: .primaryAction, content: {
+        ToolbarItem(placement: .primaryAction) {
             EditButton()
-        })
+        }
     }
     
-    var baseView: some View {
+    var baseContent: some View {
         List {
+            // Appliance symbol picker
             Section {
-                SymbolPickerButton(appliance: model)
+                SymbolPickerButton(appliance: appliance)
             }
             
-            LabeledContent(Design.Appliance.brandLabel) {
-                BrandTogglePicker(selection: $model.brand)
+            // Brand toggle picker
+            LabeledContent(Copy.Appliance.brandLabel) {
+                BrandTogglePicker(selection: $appliance.brand)
             }
             
-            LabeledContent(Design.Appliance.typeLabel) {
-                CategoryTogglePicker(selection: $model.category)
-            }.onChange(of: model.category, initial: true) {
-                model.symbol = model.category?.symbol ?? .wrenchAndScrewdriverFill
+            // Category toggle picker
+            LabeledContent(Copy.Appliance.typeLabel) {
+                CategoryTogglePicker(selection: $appliance.category)
+            }.onChange(of: appliance.category, initial: true) {
+                appliance.symbol = appliance.category?.symbol ?? .wrenchAndScrewdriverFill
             }
             
-            LabeledContent(Design.Appliance.modelNumberLabel) {
-                ToggleTextField(text: $model.modelNumber)
+            // Model number and serial number fields
+            LabeledContent(Copy.Appliance.modelNumberLabel) {
+                ToggleTextField(text: $appliance.modelNumber)
             }
-            LabeledContent(Design.Appliance.serialNumberLabel) {
-                ToggleTextField(text: $model.serialNumber)
+            LabeledContent(Copy.Appliance.serialNumberLabel) {
+                ToggleTextField(text: $appliance.serialNumber)
             }
             
+            // Dates related to appliance maintenance and warranty
             Section {
-                LabeledContent(Design.Appliance.lastMaintenanceLabel) {
-                    ToggleDatePicker(selection: $model.lastMaintenaceDate)
+                LabeledContent(Copy.Appliance.lastMaintenanceLabel) {
+                    ToggleDatePicker(selection: $appliance.lastMaintenaceDate)
                 }
-                LabeledContent(Design.Appliance.purchasedDateLabel) {
-                    ToggleDatePicker(selection: $model.purchaseDate)
+                LabeledContent(Copy.Appliance.purchasedDateLabel) {
+                    ToggleDatePicker(selection: $appliance.purchaseDate)
                 }
-                LabeledContent(Design.Appliance.warrantyExpirationLabel) {
-                    ToggleDatePicker(selection: $model.warrantyExpirationDate)
+                LabeledContent(Copy.Appliance.warrantyExpirationLabel) {
+                    ToggleDatePicker(selection: $appliance.warrantyExpirationDate)
                 }
             }
-            Section(Design.Appliance.manualsLabel) {
-                ConditionalView(condition: !noSavedManuals, content: {
-                    ForEach(model.manuals) {
-                        ManualItem(manual: $0)
+            
+            // Manuals section
+            Section(Copy.Appliance.manualsLabel) {
+                ConditionalView(condition: hasManualsSaved) {
+                    ForEach(appliance.manuals) { manual in
+                        ManualItem(manual: manual)
                     }
-                })
-                    
-                Button(Design.Appliance.browserButtonLabel) {
-                    if let brand = model.brand {
-                        self.urlWrapper = URLWrapper(url: URL(string: "https://www.manuallib.com/s/0-0-\(brand.name)-0-0.html"))
+                }
+                
+                // Button for browsing and saving manuals online
+                Button(Copy.Appliance.browserButtonLabel) {
+                    let urlString: String
+                    if let brand = appliance.brand {
+                        urlString = "https://www.manuallib.com/s/0-0-\(brand.name)-0-0.html"
                     } else {
-                        self.urlWrapper = URLWrapper(url: URL(string: "https://www.manuallib.com/"))
+                        urlString = "https://www.manuallib.com/"
                     }
+                    self.urlWrapper = URLWrapper(url: URL(string: urlString))
                 }
             }
         }
-        .navigationTitle($model.name)
+        .navigationTitle($appliance.name)
         .navigationBarTitleDisplayMode(.large)
-        .sheet(item: $urlWrapper, content: { wrapper in
-            Browser(url: wrapper.url)
-        })
+        .sheet(item: $urlWrapper) { wrapper in
+            Browser(pageUrl: wrapper.url)
+        }
     }
     
+    /// Adds identifable conformance to a URL allowing use of the .sheet(item: ...) view modifier
     struct URLWrapper: Identifiable {
-        let id = UUID().uuidString
+        let id = UUID()
         var url: URL?
-    }
-}
-
-enum Design {
-    enum Appliance {
-        static let brandLabel = "Brand"
-        static let typeLabel = "Type"
-        static let modelNumberLabel = "Model Number"
-        static let lastMaintenanceLabel = "Last Maintenance"
-        static let purchasedDateLabel = "Purchase Date"
-        static let warrantyExpirationLabel = "Warranty Expiration"
-        static let serialNumberLabel = "Serial Number"
-        static let manualsLabel = "Manuals"
-        static let browserButtonLabel = "Find Manual"
     }
 }
 
@@ -151,6 +153,6 @@ enum Design {
     let container = try! ModelContainer(for: Appliance.self, Manual.self, configurations: .init(isStoredInMemoryOnly: true))
     let app = Appliance()
     container.mainContext.insert(app)
-    return Detail(model: app, type: .new)
+    return Detail(appliance: app, modelType: .new)
         .modelContainer(container)
 }

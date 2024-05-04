@@ -12,7 +12,7 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         TabView {
-            // Appliances
+            // Appliance gallery
             Gallery()
                 .tabItem {
                     Label("Appliances", systemImage: "refrigerator")
@@ -25,7 +25,7 @@ struct Home: View {
                     Label("Settings", systemImage: "gearshape")
                 }
 
-            // Test By Populating Data
+            // Test view for populating data
 //            Test()
 //                .tabItem {
 //                    Label("Test", systemImage: "testtube.2")
@@ -36,5 +36,5 @@ struct Home: View {
 
 #Preview {
     Home()
-        .modelContainer(DataService.previewContainer())
+        .modelContainer(DataController().previewContainer())
 }

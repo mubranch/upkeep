@@ -9,79 +9,92 @@ import SwiftData
 import SwiftUI
 
 struct Interstitial: View {
-    @Environment(\.modelContext) var modelContext
-    @Query(sort: \Brand.name) var brands: [Brand]
+    @Binding var appliance: Appliance?
+
     @Environment(\.dismiss) var dismiss
-    @State private var brand: Brand?
-    @State private var modelNumber: String = "KRFF577KPS"
-    @State private var isFetching = false
-    @Binding var model: Appliance?
+    @Environment(\.modelContext) var modelContext
+
+    @State private var newBrand: Brand?
+    @State private var modelNumber = String.none
+    @State private var searchInProgress = false
+
+    @Query(sort: \Brand.name) var brands: [Brand]
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                if !isFetching {
-                    List {
-                        LabeledContent("Brand") {
-                            Menu(brand?.name ?? brands.first?.name ?? "ERROR") {
-                                ForEach(brands, id: \.rawValue) { b in
-                                    Button(b.name) {
-                                        brand = b
-                                    }.tag(b)
-                                }
-                            }
+            List {
+                LabeledContent(Copy.Interstitial.brandPickerMenuLabel) {
+                    Menu(newBrand?.name ?? Copy.Interstitial.brandPickerPlaceholder) {
+                        ForEach(brands, id: \.rawValue) { b in
+                            Button(b.name) {
+                                newBrand = b
+                            }.tag(b)
                         }
-
-                        TextField("Model Number", text: $modelNumber)
-
-                    }.toolbar {
-                        ToolbarItem(placement: .topBarLeading, content: {
-                            DismissButton()
-                        })
-
-                        ToolbarItem(placement: .primaryAction, content: {
-                            Button("Search", action: {
-                                if modelNumber.isEmpty {
-                                    model = .init()
-                                } else {
-                                    isFetching = true
-                                }
-                            })
-                        })
                     }
-                } else {
-                    ProgressView()
-                        .task { @MainActor in
-                            let webService = WebService(modelContext: modelContext)
-                            model = await Task {
-                                do {
-                                    if let brand = brand {
-                                        let obj = try await webService.fetchAppliance(brand: brand, modelNumber: modelNumber)
-                                        isFetching = false
-                                        return obj
-                                    } else {
-                                        // TODO: Update dismiss to show error to user
-                                        dismiss()
-                                        return nil
-                                    }
-                                } catch {
-                                    // TODO: Update dismiss to show error to user
-                                    print(error)
-                                    dismiss()
-                                    return nil
-                                }
-                            }.value
-                        }
-                        .onChange(of: model) {
-                            dismiss()
-                        }
                 }
+
+                TextField(Copy.Interstitial.modelNumberPrompt, text: $modelNumber)
             }
+            .toolbar {
+                dismissButton
+                saveButton
+            }
+            .if(searchInProgress, transform: { _ in
+                ProgressView()
+                    .task { @MainActor in
+                        await queryWebService()
+                    }
+                    .onChange(of: appliance) {
+                        dismiss()
+                    }
+            })
         }.presentationDetents([.fraction(0.35)])
+    }
+
+    var dismissButton: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading, content: {
+            DismissButton()
+        })
+    }
+
+    var saveButton: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction, content: {
+            Button(Copy.Interstitial.saveModelLabel, action: {
+                if modelNumber.isEmpty {
+                    appliance = .init()
+                } else {
+                    searchInProgress = true
+                }
+            })
+        })
+    }
+
+    private func queryWebService() async {
+        let webService = WebController(modelContext: modelContext)
+
+        appliance = await Task {
+            do {
+                if let brand = newBrand {
+                    let obj = try await webService.fetchAppliance(brand: brand, modelNumber: modelNumber)
+                    searchInProgress = false
+                    return obj
+                } else {
+                    // TODO: Add Error Handling
+                    return nil
+                }
+            } catch {
+                // TODO: Add Error Handling
+                return nil
+            }
+        }.value
+
+        if appliance != nil {
+            dismiss()
+        }
     }
 }
 
 #Preview {
-    Interstitial(model: .constant(nil))
+    Interstitial(appliance: .constant(nil))
         .modelContainer(for: [Appliance.self, Manual.self])
 }

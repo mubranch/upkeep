@@ -19,6 +19,10 @@ extension ModelContext {
     }
 }
 
+extension String {
+    static let none = ""
+}
+
 extension String? {
     var unwrapped: String {
         self ?? "unkown".capitalized
@@ -28,6 +32,14 @@ extension String? {
 extension Date? {
     var unwrapped: String {
         self?.formatted() ?? "unkown".capitalized
+    }
+}
+
+extension Sequence<Appliance> {
+    func brands() -> [Brand] {
+        return Array(Set(compactMap { $0.brand })).sorted(by: {
+            $0.rawValue > $1.rawValue
+        })
     }
 }
 

@@ -9,27 +9,27 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+/// View for browsing web content.
 struct Browser: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismissAction
     @Environment(\.modelContext) var modelContext
-    @State private var didAddManual = false
+    @State private var addedManual = false
     @State private var newManual: Manual?
-    let url: URL?
+    let pageUrl: URL?
 
     var body: some View {
         NavigationStack {
             VStack {
-                WebView(downloadUrl: url,
+                // Web view displaying the content of the provided URL.
+                WebView(downloadUrl: pageUrl,
                         modelContext: modelContext,
-                        modelWasAdded: $didAddManual,
-                        closeFunction: { dismiss() },
+                        modelWasAdded: $addedManual,
+                        closeFunction: { dismissAction() },
                         newManual: $newManual)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Dismiss") {
-                        self.dismiss()
-                    }
+                    DismissButton()
                 }
             }
             .sheet(item: $newManual, content: {

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ToggleTextField: View {
-    @Environment(\.editMode) var editMode
     @Binding var text: String
+
+    @Environment(\.editMode) var editMode
 
     var body: some View {
         Text(text)

@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ToggleButton: View {
-    let label: String
-    let symbol: String?
+    var label: String
+    var symbol: String?
+
     @Binding var binding: Bool
 
     var body: some View {

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-protocol CategoryProtocol: Identifiable, Codable {
+protocol CategoryProtocol: Identifiable, Codable, Hashable {
     var title: String { get }
 }
 

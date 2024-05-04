@@ -9,10 +9,50 @@ import SwiftData
 import SwiftUI
 
 struct SimpleFilter: View {
+    @Binding var filteredAppliances: [Appliance]
+
+    @State var filterController = FilterController()
+
     @Query var appliances: [Appliance]
-    @StateObject var filter = FilterController()
-    @Binding var target: [Appliance]
     @Query var brands: [Brand]
+
+    var body: some View {
+        Menu {
+            ForEach(brandsForModelsInContext) { brand in
+                let isActive = filterController.brands.contains(brand)
+
+                Button(action: { updateFilter(brand) }) {
+                    if isActive {
+                        Label(brand.name, systemImage: Copy.SimpleFilter.selectedBrandSymbol)
+                    } else {
+                        Text(brand.name)
+                    }
+                }
+            }
+
+            Divider()
+
+            Button(Copy.SimpleFilter.clearFilterLabel, systemImage: Copy.SimpleFilter.clearFilterSymbol) {
+                updateFilter(.reset)
+            }
+        } label: {
+            Image(systemName: Copy.SimpleFilter.sortButtonSymbol)
+                .symbolVariant(.circle)
+        }
+        .buttonStyle(.bordered)
+        .buttonBorderShape(.circle)
+        .padding(.leading)
+        .disabled(brandsForModelsInContext.isEmpty)
+        .onChange(of: filterController.hasManuals) {
+            updateFilter(.update)
+        }
+        .onChange(of: appliances, initial: true) {
+            updateFilter(.reset)
+        }
+        .onChange(of: filterController.brands) {
+            updateFilter(.update)
+        }
+    }
 
     var brandsForModelsInContext: [Brand] {
         appliances.compactMap {
@@ -24,60 +64,23 @@ struct SimpleFilter: View {
         }
     }
 
-    var body: some View {
-        Menu {
-            ForEach(brandsForModelsInContext) { brand in
-                let isActive = filter.brands.contains(brand)
-
-                Button(action: { updateFilter(brand) }) {
-                    if isActive {
-                        Label(brand.name, systemImage: "checkmark")
-                    } else {
-                        Text(brand.name)
-                    }
-                }
-            }
-
-            Divider()
-
-            Button("Clear", systemImage: "xmark") {
-                updateFilter(.reset)
-            }
-        } label: {
-            Image(systemName: "line.3.horizontal.decrease")
-                .symbolVariant(.circle)
-        }
-        .disabled(brandsForModelsInContext.isEmpty)
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.circle)
-        .padding(.leading)
-        .onChange(of: filter.hasManuals) {
-            updateFilter(.update)
-        }
-        .onChange(of: appliances, initial: true) {
-            updateFilter(.reset)
-        }
-        .onChange(of: filter.brands) {
-            updateFilter(.update)
-        }
-    }
-
-    private func updateFilter(_ type: FilterController.UpdateType) {
+    private func updateFilter(_ type: UpdateType) {
         withAnimation {
             switch type {
             case .reset:
-                target = filter.reset(appliances: appliances)
+                filteredAppliances = appliances
+                filterController = filterController.reset()
             case .update:
-                target = filter.filter(appliances: appliances)
+                filteredAppliances = filterController.filter(appliances: appliances)
             }
         }
     }
 
     private func updateFilter(_ brand: Brand) {
-        if filter.brands.contains(brand) {
-            filter.brands.remove(brand)
+        if filterController.brands.contains(brand) {
+            filterController.brands.remove(brand)
         } else {
-            filter.brands.insert(brand)
+            filterController.brands.insert(brand)
         }
     }
 }

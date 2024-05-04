@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-protocol BrandProtocol: Identifiable, Codable {
+protocol BrandProtocol: Identifiable, Codable, Hashable {
     var name: String { get }
 }
 
