@@ -13,7 +13,7 @@ struct ToggleTextField: View {
     @Environment(\.editMode) var editMode
 
     var body: some View {
-        Text(text)
+        Text(text.isEmpty ? "--" : text)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
                 TextField("00000000", text: $text)
                     .multilineTextAlignment(.trailing)

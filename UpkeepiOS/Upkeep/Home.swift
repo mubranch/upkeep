@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  Home.swift
 //  Upkeep
 //
 //  Created by Mustafa on 4/22/24.
@@ -15,7 +15,7 @@ struct Home: View {
     var body: some View {
         TabView {
             // Appliance gallery
-            Gallery()
+            ApplianceGallery()
                 .tabItem {
                     Label("Appliances", systemImage: "refrigerator")
                         .environment(\.symbolVariants, .none)

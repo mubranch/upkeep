@@ -8,6 +8,18 @@
 import SwiftData
 import SwiftUI
 
+struct AppliancePropertyCarrier: Identifiable {
+    let id = UUID().uuidString
+    var name: String = .none
+    var category: Category?
+    var brand: Brand?
+    var modelNumber: String = .none
+    var serialNumber: String = .none
+    var purchaseDate: Date = .now
+    var warrantyExpirationDate: Date = .now
+    var lastMaintenaceDate: Date = .now
+}
+
 struct QuickCreate: View {
     @Binding var appliance: Appliance?
 
@@ -15,17 +27,8 @@ struct QuickCreate: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.editMode) var editMode
 
-    @State private var applianceBrand: Brand?
-    @State private var modelNumber = String.none
+    @State var carrier = AppliancePropertyCarrier()
     @State private var searchInProgress = false
-    @State private var applianceCategory: Category?
-    @State private var applianceSymbol: DefaultSymbols = .wrenchAndScrewdriverFill
-    @State private var serialNumber = String.none
-    @State private var lastMaintenanceDate = Date()
-    @State private var purchaseDate = Date()
-    @State private var warrantyExpirationDate = Date()
-    @State private var isExpanded = false
-    @State private var isEditing: EditMode = .active
 
     @Query(sort: \Brand.name) var brands: [Brand]
 
@@ -33,49 +36,40 @@ struct QuickCreate: View {
         NavigationStack {
             List {
                 Section {
-                    TextField(Copy.QuickCreate.modelNumberPrompt, text: $modelNumber)
+                    TextField(Copy.QuickCreate.modelNumberPrompt, text: $carrier.modelNumber)
 
                     LabeledContent(Copy.QuickCreate.brandPickerMenuLabel) {
-                        Menu(applianceBrand?.name ?? Copy.QuickCreate.brandPickerPlaceholder) {
+                        Menu(carrier.brand?.name ?? Copy.QuickCreate.brandPickerPlaceholder) {
                             ForEach(brands, id: \.rawValue) { b in
                                 Button(b.name) {
-                                    applianceBrand = b
+                                    carrier.brand = b
                                 }.tag(b)
                             }
                         }
                     }
                 }
 
-                Button("Advanced") {
-                    withAnimation {
-                        isExpanded.toggle()
-                        isEditing = isExpanded ? .active : .inactive
+                Section("Advanced") {
+                    // Category toggle picker
+                    LabeledContent(Copy.Appliance.typeLabel) {
+                        CategoryTogglePicker(selection: $carrier.category)
                     }
-                }
 
-                if isExpanded {
-                    Section {
-                        // Category toggle picker
-                        LabeledContent(Copy.Appliance.typeLabel) {
-                            CategoryTogglePicker(selection: $applianceCategory)
-                        }
+                    LabeledContent(Copy.Appliance.serialNumberLabel) {
+                        ToggleTextField(text: $carrier.serialNumber)
+                    }
 
-                        LabeledContent(Copy.Appliance.serialNumberLabel) {
-                            ToggleTextField(text: $serialNumber)
-                        }
-
-                        // Dates related to appliance maintenance and warranty
-                        LabeledContent(Copy.Appliance.lastMaintenanceLabel) {
-                            ToggleDatePicker(selection: $lastMaintenanceDate)
-                        }
-                        LabeledContent(Copy.Appliance.purchasedDateLabel) {
-                            ToggleDatePicker(selection: $purchaseDate)
-                        }
-                        LabeledContent(Copy.Appliance.warrantyExpirationLabel) {
-                            ToggleDatePicker(selection: $warrantyExpirationDate)
-                        }
-                    }.environment(\.editMode, $isEditing)
-                }
+                    // Dates related to appliance maintenance and warranty
+                    LabeledContent(Copy.Appliance.lastMaintenanceLabel) {
+                        ToggleDatePicker(selection: $carrier.lastMaintenaceDate)
+                    }
+                    LabeledContent(Copy.Appliance.purchasedDateLabel) {
+                        ToggleDatePicker(selection: $carrier.purchaseDate)
+                    }
+                    LabeledContent(Copy.Appliance.warrantyExpirationLabel) {
+                        ToggleDatePicker(selection: $carrier.warrantyExpirationDate)
+                    }
+                }.environment(\.editMode, .constant(.active))
             }
             .navigationTitle("Quick Create")
             .toolbar {
@@ -118,23 +112,34 @@ struct QuickCreate: View {
         ToolbarItem(placement: .primaryAction, content: {
             Button(Copy.QuickCreate.searchModelLabel, systemImage: Copy.QuickCreate.searchModelSymbol, action: {
                 searchInProgress = true
-            }).disabled(modelNumber.isEmpty || applianceBrand == nil)
+            }).disabled(carrier.modelNumber.isEmpty || carrier.brand == nil)
         })
     }
 
     @MainActor
     func queryWebService() async {
-        guard let brand = appliance?.brand else {
+        guard let brand = carrier.brand else {
             return
         }
 
-        guard let obj = await WebServiceController(modelContext: modelContext).fetchAppliance(brand: brand, modelNumber: modelNumber) else {
+        guard let obj = await WebServiceController(modelContext: modelContext).fetchAppliance(brand: brand, modelNumber: carrier.modelNumber) else {
             appliance = nil
             return
         }
 
         searchInProgress = false
+
+        obj.serialNumber = carrier.serialNumber
+        obj.lastMaintenaceDate = carrier.lastMaintenaceDate
+        obj.purchaseDate = carrier.purchaseDate
+        obj.warrantyExpirationDate = carrier.warrantyExpirationDate
+
+        if let category = carrier.category {
+            obj.category = category
+        }
+
         appliance = obj
+        dismiss()
     }
 
     @MainActor
