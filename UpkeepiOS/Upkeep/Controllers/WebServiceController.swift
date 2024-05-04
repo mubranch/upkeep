@@ -66,7 +66,7 @@ struct WebServiceController {
         let json = """
             {
                 "name":"KitchenAid KRFF507HPS",
-                "type":"refrigerator",
+                "category":"refrigerator",
                 "brand":"KitchenAid",
                 "modelNumber":"KRFF507HPS"
             }
@@ -108,7 +108,7 @@ struct WebServiceController {
 
         // Decode each key individually
         let name: String = try decodeKey(key: "name", json: jsonObject)
-        let categoryTitle: String = try decodeKey(key: "type", json: jsonObject)
+        let categoryTitle: String = try decodeKey(key: "category", json: jsonObject)
         let brandName: String = try decodeKey(key: "brand", json: jsonObject)
         let modelNumber: String = try decodeKey(key: "modelNumber", json: jsonObject)
         return ApplianceDecodable(name: name, categoryTitle: categoryTitle, brandName: brandName, modelNumber: modelNumber)
