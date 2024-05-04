@@ -39,6 +39,7 @@ struct Detail: View {
             .if(modelType == .new) { view in
                 NavigationStack {
                     view
+                        .navigationTitle($appliance.name)
                         .environment(\.editMode, .constant(.active))
                         .toolbar {
                             newModelToolbar

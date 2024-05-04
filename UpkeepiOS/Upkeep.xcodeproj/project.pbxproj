@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A01FF53E2BE473AC005A5F63 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebController.swift */; };
-		A01FF53F2BE473AC005A5F63 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebController.swift */; };
-		A01FF5402BE473AC005A5F63 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebController.swift */; };
-		A01FF5422BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
-		A01FF5432BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
-		A01FF5442BE4795A005A5F63 /* Interstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* Interstitial.swift */; };
+		A01FF53E2BE473AC005A5F63 /* WebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */; };
+		A01FF53F2BE473AC005A5F63 /* WebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */; };
+		A01FF5402BE473AC005A5F63 /* WebServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */; };
+		A01FF5422BE4795A005A5F63 /* QuickCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* QuickCreate.swift */; };
+		A01FF5432BE4795A005A5F63 /* QuickCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* QuickCreate.swift */; };
+		A01FF5442BE4795A005A5F63 /* QuickCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5412BE4795A005A5F63 /* QuickCreate.swift */; };
 		A01FF5462BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
 		A01FF5472BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
 		A01FF5482BE48623005A5F63 /* DismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5452BE48623005A5F63 /* DismissButton.swift */; };
@@ -143,8 +143,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A01FF53D2BE473AC005A5F63 /* WebController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebController.swift; sourceTree = "<group>"; };
-		A01FF5412BE4795A005A5F63 /* Interstitial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interstitial.swift; sourceTree = "<group>"; };
+		A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceController.swift; sourceTree = "<group>"; };
+		A01FF5412BE4795A005A5F63 /* QuickCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCreate.swift; sourceTree = "<group>"; };
 		A01FF5452BE48623005A5F63 /* DismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissButton.swift; sourceTree = "<group>"; };
 		A01FF5492BE4A39B005A5F63 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		A01FF5532BE4CB74005A5F63 /* ApplianceEnumProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplianceEnumProtocol.swift; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 			children = (
 				A04ED6192BDF2246007703DD /* Browser.swift */,
 				A01FF5452BE48623005A5F63 /* DismissButton.swift */,
-				A01FF5412BE4795A005A5F63 /* Interstitial.swift */,
+				A01FF5412BE4795A005A5F63 /* QuickCreate.swift */,
 				A04ED61D2BDF2375007703DD /* PDFViewer.swift */,
 				A02CFFC12BE2FE9B0086B93B /* SimpleFilter.swift */,
 				A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */,
@@ -268,7 +268,7 @@
 		A01FF5512BE4CAC8005A5F63 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A01FF53D2BE473AC005A5F63 /* WebController.swift */,
+				A01FF53D2BE473AC005A5F63 /* WebServiceController.swift */,
 				A01FF57E2BE55F5A005A5F63 /* DataController.swift */,
 				A01FF5842BE5ACB8005A5F63 /* FilterController.swift */,
 			);
@@ -338,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				A04ED5B92BD72635007703DD /* Home.swift */,
+				A01FF57A2BE55F19005A5F63 /* Settings.swift */,
 				A04ED5B72BD72635007703DD /* UpkeepApp.swift */,
 				A01FF54D2BE4CA4D005A5F63 /* Appliance */,
 				A01FF54E2BE4CA74005A5F63 /* Components */,
@@ -347,7 +348,6 @@
 				A04ED62D2BDF510C007703DD /* Resources */,
 				A01FF5502BE4CAAB005A5F63 /* Support */,
 				A01FF54F2BE4CA90005A5F63 /* UIKit */,
-				A01FF57A2BE55F19005A5F63 /* Settings.swift */,
 			);
 			path = Upkeep;
 			sourceTree = "<group>";
@@ -542,13 +542,13 @@
 				A04ED60E2BDF21AE007703DD /* WebView.swift in Sources */,
 				A02CFFC22BE2FE9B0086B93B /* SimpleFilter.swift in Sources */,
 				A01FF5682BE4CC08005A5F63 /* ManualItem.swift in Sources */,
-				A01FF53E2BE473AC005A5F63 /* WebController.swift in Sources */,
+				A01FF53E2BE473AC005A5F63 /* WebServiceController.swift in Sources */,
 				A02CFFB62BE1F7200086B93B /* ToggleTextField.swift in Sources */,
 				A02CFFAE2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
 				A01FF57F2BE55F5A005A5F63 /* DataController.swift in Sources */,
 				A01FF54A2BE4A39B005A5F63 /* Environment.swift in Sources */,
 				A01FF5652BE4CC08005A5F63 /* ManualEditor.swift in Sources */,
-				A01FF5422BE4795A005A5F63 /* Interstitial.swift in Sources */,
+				A01FF5422BE4795A005A5F63 /* QuickCreate.swift in Sources */,
 				A01FF5602BE4CBBA005A5F63 /* DefaultSymbols.swift in Sources */,
 				A04ED61E2BDF2375007703DD /* PDFViewer.swift in Sources */,
 				A04ED5F02BDC402B007703DD /* Gallery.swift in Sources */,
@@ -579,8 +579,8 @@
 				A02CFFAF2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
 				A04ED5CB2BD72639007703DD /* UpkeepTests.swift in Sources */,
 				A01FF56E2BE536AC005A5F63 /* Brand.swift in Sources */,
-				A01FF5432BE4795A005A5F63 /* Interstitial.swift in Sources */,
-				A01FF53F2BE473AC005A5F63 /* WebController.swift in Sources */,
+				A01FF5432BE4795A005A5F63 /* QuickCreate.swift in Sources */,
+				A01FF53F2BE473AC005A5F63 /* WebServiceController.swift in Sources */,
 				A04ED6032BDEF9A1007703DD /* Detail.swift in Sources */,
 				A04ED6172BDF222A007703DD /* PDFKit.swift in Sources */,
 				A01FF5802BE55F5A005A5F63 /* DataController.swift in Sources */,
@@ -606,7 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A01FF56A2BE4CC08005A5F63 /* ManualItem.swift in Sources */,
-				A01FF5402BE473AC005A5F63 /* WebController.swift in Sources */,
+				A01FF5402BE473AC005A5F63 /* WebServiceController.swift in Sources */,
 				A0D66B442BE152BA0045AE66 /* UpkeepApp.swift in Sources */,
 				A01FF54C2BE4A532005A5F63 /* Environment.swift in Sources */,
 				A02CFFC42BE2FE9B0086B93B /* SimpleFilter.swift in Sources */,
@@ -621,7 +621,7 @@
 				A01FF55E2BE4CBA7005A5F63 /* DefaultBrand.swift in Sources */,
 				A02CFFB02BE1F7010086B93B /* SymbolPickerButton.swift in Sources */,
 				A01FF5872BE5ACB8005A5F63 /* FilterController.swift in Sources */,
-				A01FF5442BE4795A005A5F63 /* Interstitial.swift in Sources */,
+				A01FF5442BE4795A005A5F63 /* QuickCreate.swift in Sources */,
 				A04ED5D52BD72639007703DD /* UpkeepUITests.swift in Sources */,
 				A01FF57D2BE55F19005A5F63 /* Settings.swift in Sources */,
 				A02CFFD02BE3EFC80086B93B /* ConditionalView+Generic.swift in Sources */,

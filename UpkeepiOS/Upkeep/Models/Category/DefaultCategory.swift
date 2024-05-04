@@ -74,7 +74,6 @@ enum DefaultCategory: String, CategoryProtocol, CaseIterable {
 extension Category {
     var symbol: DefaultSymbols {
         let camel = self.rawValue.camelCase()
-        print(camel)
         switch camel {
         case "refrigerator":
             return .refrigerator

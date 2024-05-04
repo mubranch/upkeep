@@ -36,11 +36,14 @@ extension Copy {
 }
 
 extension Copy {
-    enum Interstitial {
+    enum QuickCreate {
         static let modelNumberPrompt = "Enter a model number"
         static let brandPickerMenuLabel = "Brand"
         static let brandPickerPlaceholder = "Select a brand"
-        static let saveModelLabel = "Save"
+        static let searchModelLabel = "Search"
+        static let dismissActionLabel = "Cancel"
+        static let manualModelLabel = "Advanced"
+        static let searchModelSymbol = "magnifyingglass"
     }
 }
 

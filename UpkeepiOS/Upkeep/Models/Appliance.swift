@@ -33,7 +33,7 @@ final class Appliance: Identifiable {
          symbol: DefaultSymbols? = nil,
          manuals: [Manual] = [Manual]())
     {
-        self.name = name != nil ? name! : ""
+        self.name = name != nil ? name! : "New Appliance"
         self.category = category
         self.brand = brand
         self.modelNumber = modelNumber ?? "00000000"

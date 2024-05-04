@@ -54,14 +54,11 @@ struct Gallery: View {
                 Label(Copy.Gallery.primaryActionLabel, systemImage: Copy.Gallery.primaryActionSymbol)
             }
             .sheet(isPresented: $isAddingNewAppliance) {
-                if let newAppliance = newAppliance {
-                    // Present a detailed view for editing the properties of the new appliance
-                    Detail(appliance: newAppliance, modelType: .new)
-                } else {
-                    // Present a simplified view for adding a new appliance
-                    Interstitial(appliance: $newAppliance)
-                }
+                QuickCreate(appliance: $newAppliance)
             }
+            .sheet(item: $newAppliance, content: { appliance in
+                Detail(appliance: appliance, modelType: .new)
+            })
         }
     }
 
