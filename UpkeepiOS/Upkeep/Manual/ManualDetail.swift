@@ -9,11 +9,12 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct ManualEditor: View {
+struct ManualDetail: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismissAction
     @Query var appliances: [Appliance]
     @Bindable var manual: Manual
+    @Bindable var appliance: Appliance
 
     var body: some View {
         NavigationStack {
@@ -53,6 +54,11 @@ struct ManualEditor: View {
                 }
             }
         }
+        .onAppear {
+            if manual.appliance == nil {
+                manual.appliance = appliance
+            }
+        }
     }
 }
 
@@ -62,6 +68,6 @@ struct ManualEditor: View {
     container.mainContext.insert(app)
     let manual = Manual(name: String.none, urlString: "https://data2.manualslib.com/pdf7/302/30121/3012079-kitchenaid/krff507hps.pdf?5c7cf92795281981af25aec0224b3a20", file: try! Data(contentsOf: URL(string: "https://data2.manualslib.com/pdf7/302/30121/3012079-kitchenaid/krff507hps.pdf?5c7cf92795281981af25aec0224b3a20")!))
     container.mainContext.insert(manual)
-    return ManualEditor(manual: manual)
+    return ManualDetail(manual: manual, appliance: app)
         .modelContainer(container)
 }

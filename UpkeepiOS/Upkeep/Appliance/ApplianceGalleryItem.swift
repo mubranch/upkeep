@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct ItemSymbol: View {
+struct ApplianceGalleryItemSymbol: View {
     @Bindable var appliance: Appliance
 
     var body: some View {
@@ -28,13 +28,13 @@ struct ItemSymbol: View {
     }
 }
 
-struct Item: View {
+struct ApplianceGalleryItem: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var appliance: Appliance
 
     var body: some View {
         HStack(spacing: 20) {
-            ItemSymbol(appliance: appliance)
+            ApplianceGalleryItemSymbol(appliance: appliance)
 
             VStack(alignment: .leading) {
                 Text(appliance.brand?.name ?? "No Name")

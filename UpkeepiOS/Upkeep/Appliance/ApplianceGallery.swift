@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct Gallery: View {
+struct ApplianceGallery: View {
     @Environment(\.modelContext) private var modelContext
     @State private var filteredAppliances: [Appliance] = []
     @State private var selectedAppliance: Appliance?
@@ -31,9 +31,9 @@ struct Gallery: View {
         List {
             ForEach(filteredAppliances) { appliance in
                 NavigationLink {
-                    Detail(appliance: appliance, modelType: .existing)
+                    ApplianceDetail(appliance: appliance, modelType: .existing)
                 } label: {
-                    Item(appliance: appliance)
+                    ApplianceGalleryItem(appliance: appliance)
                 }
             }
             .onDelete(perform: deleteAppliance)
@@ -57,7 +57,7 @@ struct Gallery: View {
                 QuickCreate(appliance: $newAppliance)
             }
             .sheet(item: $newAppliance, content: { appliance in
-                Detail(appliance: appliance, modelType: .new)
+                ApplianceDetail(appliance: appliance, modelType: .new)
             })
         }
     }
