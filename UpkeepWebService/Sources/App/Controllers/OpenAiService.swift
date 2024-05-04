@@ -8,23 +8,22 @@
 import Foundation
 import OpenAI
 
-final class OpenAIService {
+struct OpenAIService {
     static var apiKey: String? {
-        if let key = ProcessInfo.processInfo.environment["API_KEY"] {
-            return key
-        } else {
+        guard let key = ProcessInfo.processInfo.environment["API_KEY"] else {
             return nil
         }
+        return key
     }
 
-    let openAI = OpenAI(apiToken: apiKey ?? "")
+    var openAI = OpenAI(apiToken: apiKey ?? "")
 
     func fetchApplianceJSON(brand: String, modelNumber: String) async throws -> String {
         guard brand.count < 20, modelNumber.count < 20 else {
             return "{ \"error\": \"Invalid paramter for brand or modelNumber\"}"
         }
 
-        let prompt = "Return only a JSON response for the given appliance: \(brand) \(modelNumber). The JSON should contain properties: name, type (in camelCase e.g. KitchenAid is kitchenaid), brand (camelCase without punctuation), and modelNumber. Types should be the basic appliance type without qualifiers. Titles should include the brand name, and appliance type."
+        let prompt = "You are an expert on appliances. A user is giving you an appliance brand and a modelNumber. Your job is to figure out which appliance they are looking for. Return only a JSON response for that appliance. The JSON should contain properties: name, category (in camelCase e.g. KitchenAid is kitchenaid), brand (camelCase without punctuation), and modelNumber. Types should be the basic appliance type without qualifiers. Titles should include the brand name, and appliance type. Here is the brand and modelNumber: \(brand) \(modelNumber) for the appliance they are looking for."
 
         let query = ChatQuery(messages: [.user(.init(content: .string(prompt)))],
                               model: .gpt4_turbo,
