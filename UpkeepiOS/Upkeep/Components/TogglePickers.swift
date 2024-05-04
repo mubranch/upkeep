@@ -24,6 +24,7 @@ struct BrandTogglePicker: View {
                         }.tag(b)
                     }
                 }
+                .disabled(brands.isEmpty)
             }
     }
 }
@@ -44,6 +45,7 @@ struct CategoryTogglePicker: View {
                         }.tag(c)
                     }
                 }
+                .disabled(categories.isEmpty)
             }
     }
 }

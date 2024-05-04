@@ -10,15 +10,18 @@ import SwiftData
 import SwiftUI
 
 struct PDFViewer: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.dismiss) var dismissAction
     @Bindable var manual: Manual
 
     var body: some View {
         NavigationStack {
             PDFKitView(manual.file)
                 .navigationTitle(manual.name)
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    DismissButton()
+                    Button("Close") {
+                        dismissAction()
+                    }
                 }
         }
     }

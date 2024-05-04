@@ -65,10 +65,10 @@ struct WebServiceController {
     func fetchApplianceTest() async -> Appliance? {
         let json = """
             {
-                "name":"KitchenAid KRFF577KPS",
+                "name":"KitchenAid KRFF507HPS",
                 "type":"refrigerator",
                 "brand":"KitchenAid",
-                "modelNumber":"KRFF577KPS"
+                "modelNumber":"KRFF507HPS"
             }
         """
 

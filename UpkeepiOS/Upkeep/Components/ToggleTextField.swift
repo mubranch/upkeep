@@ -15,7 +15,7 @@ struct ToggleTextField: View {
     var body: some View {
         Text(text)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
-                TextField(text, text: $text)
+                TextField("00000000", text: $text)
                     .multilineTextAlignment(.trailing)
                     .foregroundStyle(Color.accentColor)
             }

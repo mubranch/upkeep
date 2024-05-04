@@ -127,10 +127,10 @@ struct Detail: View {
                 // Button for browsing and saving manuals online
                 Button(Copy.Appliance.browserButtonLabel) {
                     let urlString: String
-                    if let brand = appliance.brand {
-                        urlString = "https://www.manuallib.com/s/0-0-\(brand.name)-0-0.html"
+                    if !appliance.modelNumber.isEmpty, let brand = appliance.brand {
+                        urlString = "https://www.manualslib.com/\(appliance.modelNumber.first!.lowercased())/\(appliance.modelNumber.lowercased()).html"
                     } else {
-                        urlString = "https://www.manuallib.com/"
+                        urlString = "https://www.manualslib.com/"
                     }
                     self.urlWrapper = URLWrapper(url: URL(string: urlString))
                 }
@@ -139,7 +139,8 @@ struct Detail: View {
         .navigationTitle($appliance.name)
         .navigationBarTitleDisplayMode(.large)
         .sheet(item: $urlWrapper) { wrapper in
-            Browser(pageUrl: wrapper.url)
+            // TODO: add error handling here
+            Browser(baseURL: wrapper.url!)
         }
     }
     

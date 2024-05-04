@@ -10,32 +10,58 @@ import SwiftData
 import SwiftUI
 
 struct ManualEditor: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismissAction
     @Query var appliances: [Appliance]
     @Bindable var manual: Manual
 
     var body: some View {
         NavigationStack {
             List {
-                TextField(manual.name, text: $manual.name)
-                    .listRowBackground(Color(uiColor: .secondarySystemFill))
-                Picker("Appliance", selection: $manual.appliance) {
-                    ForEach(appliances) { appliance in
-                        Text(appliance.name)
-                            .tag(appliance)
-                    }
+                LabeledContent("Name") {
+                    TextField("New Manual", text: $manual.name)
+                        .multilineTextAlignment(.trailing)
                 }
-                .listRowBackground(Color(uiColor: .secondarySystemFill))
-                TextField(manual.type, text: $manual.type)
-                    .listRowBackground(Color(uiColor: .secondarySystemFill))
+
+                LabeledContent("Appliance") {
+                    Menu(manual.appliance?.name ?? "Not Set") {
+                        ForEach(appliances) { appliance in
+                            Button(appliance.name) {
+                                manual.appliance = appliance
+                            }
+                            .tag(appliance)
+                        }
+                    }
+                    .menuStyle(.button)
+                }
+
+                TextField("URL", text: $manual.urlString).disabled(true)
             }
-            .navigationTitle("Edit")
-            .scrollContentBackground(.hidden)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    DismissButton()
+                    Button("Cancel") {
+                        modelContext.delete(manual)
+                        dismissAction()
+                    }
+                }
+
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Save") {
+                        modelContext.insert(manual)
+                        dismissAction()
+                    }.disabled(manual.name.isEmpty || manual.appliance == nil)
                 }
             }
         }
     }
+}
+
+#Preview {
+    let container = try! ModelContainer(for: Appliance.self, Manual.self, Brand.self, Category.self, configurations: .init(isStoredInMemoryOnly: true))
+    let app = Appliance(name: "Hi")
+    container.mainContext.insert(app)
+    let manual = Manual(name: String.none, urlString: "https://data2.manualslib.com/pdf7/302/30121/3012079-kitchenaid/krff507hps.pdf?5c7cf92795281981af25aec0224b3a20", file: try! Data(contentsOf: URL(string: "https://data2.manualslib.com/pdf7/302/30121/3012079-kitchenaid/krff507hps.pdf?5c7cf92795281981af25aec0224b3a20")!))
+    container.mainContext.insert(manual)
+    return ManualEditor(manual: manual)
+        .modelContainer(container)
 }

@@ -13,40 +13,40 @@ import WebKit
 
 @available(iOS 14.5, *)
 struct WebView: UIViewRepresentable {
-//    lazy var logger = Logger()
-    @State var editorDownloadUrl: URL?
-    var downloadUrl: URL?
+    @Environment(\.dismiss) var dismissAction
+    @Binding var newManual: Manual?
+    var baseURL: URL
     let modelContext: ModelContext
     let webView = WKWebView()
-    @Binding var modelWasAdded: Bool
-    var closeFunction: () -> Void
-    @Binding var newManual: Manual?
+
+    /// To let SwiftUI instantiate your views
+    func makeUIView(context: Context) -> WKWebView {
+        return webView
+    }
+
+    /// Action on redraw
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        webView.navigationDelegate = context.coordinator
+        let request = URLRequest(url: baseURL)
+        webView.load(request)
+    }
+
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            webView.load(navigationAction.request)
+        }
+
+        return nil
+    }
 
     func makeCoordinator() -> WebViewCoordinator {
         return WebViewCoordinator(self)
     }
 
-    func makeUIView(context: Context) -> WKWebView {
-        return webView
-    }
-
     func reload() {
         webView.reload()
     }
-
-    func updateUIView(_ webView: WKWebView, context: Context) {
-        webView.navigationDelegate = context.coordinator // very important to add this line.
-
-        guard let url = downloadUrl else {
-            return
-        }
-
-        let request = URLRequest(url: url)
-        webView.load(request)
-    }
 }
-
-// MARK: - WKNavigationDelegate
 
 @available(iOS 14.5, *)
 class WebViewCoordinator: NSObject, WKNavigationDelegate {
@@ -92,23 +92,19 @@ extension WebViewCoordinator: WKDownloadDelegate {
         let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let fileUrl = documentDirectory.appendingPathComponent("\(suggestedFilename)", isDirectory: false)
 
-        parent.downloadUrl = fileUrl
+        parent.baseURL = fileUrl
 
-        if !parent.modelWasAdded, let data = try? Data(contentsOf: fileUrl) {
-            let manual = Manual(name: "Test Manual", type: "Manual", file: data)
+        if let data = try? Data(contentsOf: fileUrl) {
+            let manual = Manual(name: String.none, urlString: fileUrl.absoluteString, file: data)
             parent.modelContext.insert(manual)
-            parent.modelWasAdded = true
-//            print("Manual created")
-            parent.closeFunction()
+            parent.newManual = manual
         }
 
         completionHandler(fileUrl)
     }
 
-    // MARK: - Optional
-
     func downloadDidFinish(_ download: WKDownload) {
-        parent.editorDownloadUrl = parent.downloadUrl
+//        parent.editorDownloadUrl = parent.downloadUrl
     }
 
     func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {

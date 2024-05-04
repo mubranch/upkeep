@@ -10,6 +10,8 @@ import SwiftData
 import SwiftUI
 
 struct Home: View {
+    @Environment(\.modelContext) var modelContext
+
     var body: some View {
         TabView {
             // Appliance gallery
@@ -24,11 +26,13 @@ struct Home: View {
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
+        }.task {
+            addBrandsAndCategories(context: modelContext)
         }
     }
 }
 
 #Preview {
     Home()
-        .modelContainer(DataController().previewContainer())
+        .modelContainer(for: [Appliance.self, Manual.self, Brand.self, Category.self], inMemory: false)
 }

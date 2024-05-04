@@ -13,19 +13,16 @@ import SwiftUI
 struct Browser: View {
     @Environment(\.dismiss) var dismissAction
     @Environment(\.modelContext) var modelContext
-    @State private var addedManual = false
     @State private var newManual: Manual?
-    let pageUrl: URL?
+    let baseURL: URL
 
     var body: some View {
         NavigationStack {
             VStack {
                 // Web view displaying the content of the provided URL.
-                WebView(downloadUrl: pageUrl,
-                        modelContext: modelContext,
-                        modelWasAdded: $addedManual,
-                        closeFunction: { dismissAction() },
-                        newManual: $newManual)
+                WebView(newManual: $newManual,
+                        baseURL: baseURL,
+                        modelContext: modelContext)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

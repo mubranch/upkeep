@@ -36,8 +36,8 @@ final class Appliance: Identifiable {
         self.name = name != nil ? name! : "New Appliance"
         self.category = category
         self.brand = brand
-        self.modelNumber = modelNumber ?? "00000000"
-        self.serialNumber = serialNumber ?? "00000000"
+        self.modelNumber = modelNumber ?? ""
+        self.serialNumber = serialNumber ?? ""
         self.purchaseDate = purchaseDate
         self.warrantyExpirationDate = warrantyExpirationDate
         self.lastMaintenaceDate = lastMaintenaceDate

@@ -11,7 +11,7 @@ import SwiftUI
 
 extension ModelContext {
     var isEmpty: Bool {
-        var itemFetchDescriptor = FetchDescriptor<Brand>()
+        let itemFetchDescriptor = FetchDescriptor<Brand>()
         guard (try? fetch(itemFetchDescriptor).count) == 0 else {
             return false
         }

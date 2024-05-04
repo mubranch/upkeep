@@ -13,18 +13,18 @@ import SwiftUI
 final class Manual: Identifiable {
     var id = UUID().uuidString
     var name: String
-    var type: String
+    var urlString: String
     var file: Data
     var appliance: Appliance?
 
     init(appliance: Appliance? = nil,
          name: String,
-         type: String,
+         urlString: String,
          file: Data)
     {
         self.appliance = appliance
         self.name = name
-        self.type = type
+        self.urlString = urlString
         self.file = file
     }
 }
