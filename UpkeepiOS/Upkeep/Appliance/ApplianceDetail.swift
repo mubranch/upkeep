@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-struct Detail: View {
+struct ApplianceDetail: View {
     @Environment(\.dismiss) var dismissAction
     @Environment(\.editMode) var editMode
     @Environment(\.modelContext) var modelContext
@@ -81,6 +81,7 @@ struct Detail: View {
             // Appliance symbol picker
             Section {
                 SymbolPickerButton(appliance: appliance)
+                    .disabled(editMode?.wrappedValue.isEditing == false)
             }
             
             // Brand toggle picker
@@ -120,34 +121,40 @@ struct Detail: View {
             Section(Copy.Appliance.manualsLabel) {
                 ConditionalView(condition: hasManualsSaved) {
                     ForEach(appliance.manuals) { manual in
-                        ManualItem(manual: manual)
+                        ManualItem(manual: manual, appliance: appliance)
                     }
                 }
-                
-                // Button for browsing and saving manuals online
-                Button(Copy.Appliance.browserButtonLabel) {
+            }
+            
+            // Button for browsing and saving manuals online
+            Section {
+                Button(Copy.Appliance.browserButtonLabel, systemImage: "magnifyingglass") {
                     let urlString: String
-                    if !appliance.modelNumber.isEmpty, let brand = appliance.brand {
+                    
+                    if !appliance.modelNumber.isEmpty {
                         urlString = "https://www.manualslib.com/\(appliance.modelNumber.first!.lowercased())/\(appliance.modelNumber.lowercased()).html"
                     } else {
                         urlString = "https://www.manualslib.com/"
                     }
-                    self.urlWrapper = URLWrapper(url: URL(string: urlString))
+                    
+                    if let url = URL(string: urlString) {
+                        self.urlWrapper = URLWrapper(url: url)
+                    }
                 }
             }
         }
         .navigationTitle($appliance.name)
-        .navigationBarTitleDisplayMode(.large)
+        .navigationBarTitleDisplayMode(.inline)
         .sheet(item: $urlWrapper) { wrapper in
             // TODO: add error handling here
-            Browser(baseURL: wrapper.url!)
+            Browser(appliance: appliance, baseURL: wrapper.url)
         }
     }
     
     /// Adds identifable conformance to a URL allowing use of the .sheet(item: ...) view modifier
     struct URLWrapper: Identifiable {
         let id = UUID()
-        var url: URL?
+        var url: URL
     }
 }
 
@@ -155,6 +162,6 @@ struct Detail: View {
     let container = try! ModelContainer(for: Appliance.self, Manual.self, configurations: .init(isStoredInMemoryOnly: true))
     let app = Appliance()
     container.mainContext.insert(app)
-    return Detail(appliance: app, modelType: .new)
+    return ApplianceDetail(appliance: app, modelType: .new)
         .modelContainer(container)
 }

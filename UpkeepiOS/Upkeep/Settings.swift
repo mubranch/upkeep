@@ -10,8 +10,10 @@ import SwiftUI
 struct Settings: View {
     var body: some View {
         NavigationStack {
-            Text("Not yet implemented!")
-                .navigationTitle(Copy.Settings.pageTitle)
+            List {
+                Toggle("Disable AI Search", isOn: .constant(false)).disabled(true)
+            }
+            .navigationTitle(Copy.Settings.pageTitle)
         }
     }
 }

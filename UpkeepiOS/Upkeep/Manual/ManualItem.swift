@@ -11,6 +11,7 @@ import SwiftUI
 struct ManualItem: View {
     @Environment(\.modelContext) var modelContext
     @Bindable var manual: Manual
+    @Bindable var appliance: Appliance
     @State var selectedManual: Manual?
     @State var editingManual: Manual?
 
@@ -20,14 +21,16 @@ struct ManualItem: View {
         }
         .lineLimit(1)
         .sheet(item: $editingManual, content: {
-            ManualEditor(manual: $0)
+            ManualDetail(manual: $0, appliance: appliance)
         })
         .fullScreenCover(item: $selectedManual, content: {
             PDFViewer(manual: $0)
         })
         .swipeActions(edge: .trailing) {
             Button("Delete", systemImage: "trash") {
-                modelContext.delete(manual)
+                withAnimation {
+                    modelContext.delete(manual)
+                }
             }.tint(.red)
         }
         .contextMenu {

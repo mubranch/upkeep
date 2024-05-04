@@ -14,6 +14,7 @@ struct Browser: View {
     @Environment(\.dismiss) var dismissAction
     @Environment(\.modelContext) var modelContext
     @State private var newManual: Manual?
+    @Bindable var appliance: Appliance
     let baseURL: URL
 
     var body: some View {
@@ -26,11 +27,13 @@ struct Browser: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    DismissButton()
+                    Button("Close") {
+                        dismissAction()
+                    }
                 }
             }
             .sheet(item: $newManual, content: {
-                ManualEditor(manual: $0)
+                ManualDetail(manual: $0, appliance: appliance)
             })
         }
     }
