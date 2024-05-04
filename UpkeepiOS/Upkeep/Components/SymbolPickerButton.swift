@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SymbolPickerButton: View {
-    @State private var isPickingImage = false
     @Bindable var appliance: Appliance
+
+    @State private var pickingImage = false
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 15.0)
@@ -23,13 +25,13 @@ struct SymbolPickerButton: View {
                 .padding()
                 .foregroundStyle((appliance.brand?.name.hashedToColor() ?? Color.accentColor).gradient)
         }
+        .listRowBackground(Color.clear)
         .frame(maxWidth: .infinity, maxHeight: 120)
         .onTapGesture {
-            isPickingImage.toggle()
+            pickingImage.toggle()
         }
-        .sheet(isPresented: $isPickingImage, content: {
+        .sheet(isPresented: $pickingImage, content: {
             SymbolPicker(appliance: appliance)
         })
-        .listRowBackground(Color.clear)
     }
 }

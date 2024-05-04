@@ -9,58 +9,67 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-extension Design {
-    enum Gallery {
-        static let title = "Appliances"
-        static let symbol = "powerplug.fill"
-        static let addModelTitle = "Add Appliances"
-        static let addModelSymbol = "plus"
-    }
-}
-
 struct Gallery: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var filteredModel: [Appliance] = []
-    @State private var selection: Appliance?
-    @State private var newModel: Appliance?
-    @State private var isAddingNew = false
+    @State private var filteredAppliances: [Appliance] = []
+    @State private var selectedAppliance: Appliance?
+    @State private var newAppliance: Appliance?
+    @State private var isAddingNewAppliance = false
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(self.filteredModel) { model in
-                    NavigationLink(value: model, label: { Item(appliance: model) })
+            mainContent
+                .navigationTitle(Copy.Gallery.pageTitle)
+                .toolbar {
+                    filterButton
+                    addButton
                 }
-                .onDelete(perform: self.deleteAppliance)
-            }
-            .listStyle(.plain)
-            .navigationDestination(for: Appliance.self, destination: { model in
-                Detail(model: model, type: .existing)
-            })
-            .navigationTitle(Design.Gallery.title)
-            .toolbar {
-                ToolbarItem {
-                    SimpleFilter(target: self.$filteredModel)
-                }
+        }
+    }
 
-                ToolbarItem {
-                    Button(Design.Gallery.addModelTitle, systemImage: Design.Gallery.addModelSymbol, action: self.generateAppliance)
-                        .sheet(isPresented: $isAddingNew, content: {
-                            Interstitial(model: $newModel)
-                        })
-                        .sheet(item: self.$newModel) { model in
-                            Detail(model: model, type: .new)
-                        }
+    private var mainContent: some View {
+        List {
+            ForEach(filteredAppliances) { appliance in
+                NavigationLink {
+                    Detail(appliance: appliance, modelType: .existing)
+                } label: {
+                    Item(appliance: appliance)
+                }
+            }
+            .onDelete(perform: deleteAppliance)
+        }
+        .listStyle(.plain)
+    }
+
+    private var filterButton: some ToolbarContent {
+        ToolbarItem {
+            SimpleFilter(filteredAppliances: $filteredAppliances)
+        }
+    }
+
+    private var addButton: some ToolbarContent {
+        ToolbarItem {
+            Button(action: addNewAppliance) {
+                // Button to initiate adding a new appliance
+                Label(Copy.Gallery.primaryActionLabel, systemImage: Copy.Gallery.primaryActionSymbol)
+            }
+            .sheet(isPresented: $isAddingNewAppliance) {
+                if let newAppliance = newAppliance {
+                    // Present a detailed view for editing the properties of the new appliance
+                    Detail(appliance: newAppliance, modelType: .new)
+                } else {
+                    // Present a simplified view for adding a new appliance
+                    Interstitial(appliance: $newAppliance)
                 }
             }
         }
     }
 
-    private func generateAppliance() {
-        isAddingNew.toggle()
+    private func addNewAppliance() {
+        isAddingNewAppliance.toggle()
     }
 
     private func deleteAppliance(indexSet: IndexSet) {
-        _ = indexSet.map { self.modelContext.delete(self.filteredModel[$0]) }
+        _ = indexSet.map { modelContext.delete(filteredAppliances[$0]) }
     }
 }

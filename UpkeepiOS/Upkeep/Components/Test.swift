@@ -11,13 +11,16 @@ import SwiftUI
 
 struct Test: View {
     @Environment(\.modelContext) var modelContext
+    let dataController = DataController()
 
     var body: some View {
         NavigationStack {
             List {
                 Button("Reset", systemImage: "arrow.circlepath") {
-                    self.modelContext.container.deleteAllData()
-                    DataService.addBrandsAndCategories(modelContext: self.modelContext)
+                    Task { @MainActor in
+                        self.modelContext.container.deleteAllData()
+                        dataController.addBrandsAndCategories(container: self.modelContext.container)
+                    }
                 }.disabled(modelContext.isEmpty)
 
                 Button("Populate", systemImage: "swiftdata") {

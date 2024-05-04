@@ -1,5 +1,5 @@
 //
-//  WebService.swift
+//  WebController.swift
 //  Upkeep
 //
 //  Created by Mustafa on 5/2/24.
@@ -11,21 +11,22 @@ import SwiftUI
 
 // "Return only a JSON response for the given appliance: KitchenAid KRFF577KPS. The JSON should contain properties: name, type (in camelCase), brand (camelCase without punctuation), and modelNumber."
 
-struct WebServiceCodable: Codable {
+struct WebControllerCodable: Codable {
     var name: String
     var category: Category
     var brand: Brand
     var modelNumber: String
 }
 
-extension WebServiceCodable {
+extension WebControllerCodable {
     func convertToAppliance() -> Appliance {
         Appliance(name: self.name, category: self.category, brand: self.brand, modelNumber: self.modelNumber)
     }
 }
 
-struct WebService {
+struct WebController {
     @Environment(\.webServiceEndpoint) var endpoint
+
     var modelContext: ModelContext
 
     var categories: [Category] {
@@ -38,7 +39,6 @@ struct WebService {
         return (try? self.modelContext.fetch(fetchRequest)) ?? []
     }
 
-    @MainActor
     func fetchAppliance(brand: Brand, modelNumber: String) async throws -> Appliance {
         print("Starting search")
         guard let url = URL(string: endpoint + "/\(brand.name)/\(modelNumber)") else {
@@ -123,7 +123,6 @@ struct WebService {
         }
     }
 
-    @MainActor
     func fetchApplianceTest() async throws -> Appliance {
         let json = """
             {
@@ -139,7 +138,7 @@ struct WebService {
         }
 
         do {
-            let decodedData = try JSONDecoder().decode(WebServiceCodable.self, from: jsonData)
+            let decodedData = try JSONDecoder().decode(WebControllerCodable.self, from: jsonData)
             return decodedData.convertToAppliance()
         } catch {
             throw error

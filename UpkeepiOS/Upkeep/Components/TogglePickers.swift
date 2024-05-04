@@ -9,15 +9,15 @@ import SwiftData
 import SwiftUI
 
 struct BrandTogglePicker: View {
-    @Environment(\.editMode) var editMode
     @Binding var selection: Brand?
+    @Environment(\.editMode) var editMode
     @Query(sort: \Brand.name) var brands: [Brand]
 
     var body: some View {
-        Text(selection?.name.capitalized ?? brands.first?.name.capitalized ?? "Not Set")
+        Text(selection?.name.capitalized ?? Copy.TogglePickers.noValueText)
             .foregroundStyle(Color.secondary)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
-                Menu(selection?.name.capitalized ?? brands.first?.name.capitalized ?? "Not Set") {
+                Menu(selection?.name.capitalized ?? Copy.TogglePickers.noValueText) {
                     ForEach(brands) { b in
                         Button(b.name.capitalized) {
                             selection = b
@@ -29,15 +29,15 @@ struct BrandTogglePicker: View {
 }
 
 struct CategoryTogglePicker: View {
-    @Environment(\.editMode) var editMode
     @Binding var selection: Category?
+    @Environment(\.editMode) var editMode
     @Query(sort: \Category.title) var categories: [Category]
 
     var body: some View {
-        Text(selection?.title.capitalized ?? categories.first?.title.capitalized ?? "Not Set")
+        Text(selection?.title.capitalized ?? Copy.TogglePickers.noValueText)
             .foregroundStyle(Color.secondary)
             .if(editMode?.wrappedValue.isEditing == true) { _ in
-                Menu(selection?.title.capitalized ?? categories.first?.title.capitalized ?? "Not Set") {
+                Menu(selection?.title.capitalized ?? Copy.TogglePickers.noValueText) {
                     ForEach(categories) { c in
                         Button(c.title.capitalized) {
                             selection = c

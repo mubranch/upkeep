@@ -15,6 +15,6 @@ struct UpkeepApp: App {
         WindowGroup {
             Home()
         }
-        .modelContainer(DataService.persistentContainer())
+        .modelContainer(DataController().persistentContainer())
     }
 }
