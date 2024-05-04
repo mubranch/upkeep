@@ -17,7 +17,7 @@ func routes(_ app: Application) throws {
         }
 
         let service = OpenAIService()
-        let result = try await service.fetchApplianceJSON(brand: "kitchenaid", modelNumber: "KRFF577KPS")
+        let result = try await service.fetchApplianceJSON(brand: brand, modelNumber: modelNumber)
         return result
     }
 }
