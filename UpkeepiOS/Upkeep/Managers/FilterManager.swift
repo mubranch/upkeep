@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct FilterManager {
+class FilterManager {
     var brands: Set<Brand> = []
-    var hasManuals: Bool? = nil
+    var hasManuals: Bool?
 
     var noBrandFilter: Bool { brands.isEmpty }
     var noManualFilter: Bool { hasManuals == nil }
@@ -18,57 +18,40 @@ struct FilterManager {
         !noBrandFilter || !noManualFilter
     }
 
+    private let logger = LogManager(subsystem: "com.upkeep.subsystem", category: "FilterManager")
+
     func filter(appliances: [Appliance]) -> [Appliance] {
-        return appliances.filter {
-            switch noBrandFilter && noManualFilter {
-            case true:
-                if !noBrandFilter, !noManualFilter {
-                    return checkForManualsAndBrand($0)
-                } else {
-                    return true
-                }
-            case false:
-                if !noBrandFilter, noManualFilter {
-                    return checkForBrand($0)
-                } else if noBrandFilter, !noManualFilter {
-                    return checkForManuals($0)
-                } else {
-                    return false
-                }
-            }
+        logger.logInfo("Starting filter operation")
+        let filteredAppliances = appliances.filter { appliance in
+            (noBrandFilter || checkForBrand(appliance)) &&
+                (noManualFilter || checkForManuals(appliance))
         }
+        logger.logInfo("Filter operation completed. \(filteredAppliances.count) appliances passed the filter.")
+        return filteredAppliances
     }
 
     func reset() -> FilterManager {
+        logger.logInfo("Resetting filter settings to default.")
         return FilterManager()
     }
 
-    private func checkForManualsAndBrand(_ appliance: Appliance) -> Bool {
-        if checkForManuals(appliance) {
-            return checkForBrand(appliance)
-        } else {
-            return false
-        }
-    }
-
     private func checkForManuals(_ appliance: Appliance) -> Bool {
-        if (appliance.manuals.count != 0) == hasManuals {
+        guard let hasManuals = hasManuals else {
             return true
-        } else {
-            return false
         }
+        let result = !appliance.manuals.isEmpty == hasManuals
+        logger.logInfo("Manuals check: \(result) for appliance ID \(appliance.id)")
+        return result
     }
 
     private func checkForBrand(_ appliance: Appliance) -> Bool {
         guard let brand = appliance.brand else {
+            logger.logInfo("Brand check failed: no brand for appliance ID \(appliance.id)")
             return false
         }
-
-        if brands.contains(brand) {
-            return true
-        } else {
-            return false
-        }
+        let result = brands.contains(brand)
+        logger.logInfo("Brand check: \(result) for brand \(brand.name) in appliance ID \(appliance.id)")
+        return result
     }
 }
 

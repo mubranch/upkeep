@@ -11,25 +11,30 @@ import SwiftData
 class HomeViewModel: ObservableObject {
     @Published var appliances: [Appliance]
     let modelContext: ModelContext
+    private let logger = LogManager(subsystem: "com.upkeep.subsystem", category: "HomeViewModel")
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
         self.appliances = modelContext.fetchData()
-        addDefaults(context: modelContext)
+        logger.logInfo("Fetched appliances: \(appliances.count) items")
+        addDefaultsIfNeeded()
     }
 
-    // Adds default brands and categories to modelcontext
-    func addDefaults(context: ModelContext) {
-        if context.isEmpty {
-            for item in DefaultBrand.allCases {
-                context.insert(Brand(name: item.rawValue))
+    private func addDefaultsIfNeeded() {
+        if modelContext.isEmpty {
+            for brand in DefaultBrand.allCases {
+                modelContext.insert(Brand(name: brand.rawValue))
+                logger.logInfo("Added default brand: \(brand.rawValue)")
             }
 
-            for item in DefaultCategory.allCases {
-                context.insert(Category(title: item.rawValue))
+            for category in DefaultCategory.allCases {
+                modelContext.insert(Category(title: category.rawValue))
+                logger.logInfo("Added default category: \(category.rawValue)")
             }
 
-            print("Defaults added to container")
+            logger.logInfo("Defaults added to model context")
+        } else {
+            logger.logInfo("Model context already populated; no defaults added")
         }
     }
 }

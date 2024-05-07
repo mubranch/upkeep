@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 class GalleryItemViewModel: ObservableObject {
-    var appliance: Appliance
+    @Bindable var appliance: Appliance
 
     init(appliance: Appliance) {
         self.appliance = appliance

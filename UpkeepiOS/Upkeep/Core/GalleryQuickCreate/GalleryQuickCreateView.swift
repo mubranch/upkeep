@@ -20,7 +20,7 @@ struct GalleryQuickCreateView: View {
             } else {
                 content
                     .navigationTitle("Quick Create")
-                    .onChange(of: viewModel.shouldDimiss, viewModel.dismiss)
+                    .onChange(of: viewModel.shouldDismiss, viewModel.dismiss)
                     .toolbar {
                         testButton
                         searchButton
@@ -64,7 +64,7 @@ struct GalleryQuickCreateView: View {
                 // Dates related to appliance maintenance and warranty
                 LabeledContent(Copy.Appliance.lastMaintenanceLabel) {
                     ToggleDatePicker(viewModel:
-                        ToggleDatePickerViewModel(selection: $viewModel.lastMaintenaceDate))
+                        ToggleDatePickerViewModel(selection: $viewModel.lastMaintenanceDate))
                 }
                 LabeledContent(Copy.Appliance.purchasedDateLabel) {
                     ToggleDatePicker(viewModel:

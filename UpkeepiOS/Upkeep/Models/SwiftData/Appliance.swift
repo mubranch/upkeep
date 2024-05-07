@@ -29,7 +29,7 @@ final class Appliance: Identifiable {
          serialNumber: String? = nil,
          purchaseDate: Date = Date(),
          warrantyExpirationDate: Date = Date(),
-         lastMaintenaceDate: Date = Date(),
+                                          lastMaintenanceDate: Date = Date(),
          symbol: DefaultSymbols? = nil,
          manuals: [Manual] = [Manual]())
     {
@@ -40,7 +40,7 @@ final class Appliance: Identifiable {
         self.serialNumber = serialNumber ?? ""
         self.purchaseDate = purchaseDate
         self.warrantyExpirationDate = warrantyExpirationDate
-        self.lastMaintenaceDate = lastMaintenaceDate
+        self.lastMaintenaceDate =                                  lastMaintenanceDate
         self.symbol = symbol != nil ? symbol! : (category != nil ? category!.symbol : .wrenchAndScrewdriverFill)
         self.manuals = manuals
     }

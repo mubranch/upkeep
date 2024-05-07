@@ -14,7 +14,7 @@ class WebKitViewModel: ObservableObject {
 
     @Published var activeUrl: URL
 
-    var modelContext: ModelContext
+    let modelContext: ModelContext
 
     init(newManual: Binding<Manual?>,
          activeUrl: URL,
