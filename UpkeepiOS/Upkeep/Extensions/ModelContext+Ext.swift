@@ -22,8 +22,7 @@ extension ModelContext {
 
 extension ModelContext {
     var isEmpty: Bool {
-        let itemFetchDescriptor = FetchDescriptor<Brand>()
-        guard (try? fetch(itemFetchDescriptor).count) == 0 else {
+        guard (try? fetchIdentifiers(FetchDescriptor<Brand>()).count) == 0 else {
             return false
         }
         return true

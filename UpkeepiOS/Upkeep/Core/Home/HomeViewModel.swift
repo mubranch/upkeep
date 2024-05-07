@@ -22,7 +22,7 @@ class HomeViewModel: ObservableObject {
 
     private func addDefaultsIfNeeded() {
         if modelContext.isEmpty {
-            for brand in DefaultBrand.allCases {
+            for brand in DefaultBrands.allCases {
                 modelContext.insert(Brand(name: brand.rawValue))
                 logger.logInfo("Added default brand: \(brand.rawValue)")
             }
