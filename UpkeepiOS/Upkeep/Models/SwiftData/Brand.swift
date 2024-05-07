@@ -26,7 +26,7 @@ final class Brand: BrandProtocol {
     }
 
     var isDefaultBrand: Bool {
-        if DefaultBrand(rawValue: self.rawValue) != nil {
+        if DefaultBrands(rawValue: self.rawValue) != nil {
             return true
         } else {
             return false

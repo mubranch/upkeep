@@ -13,8 +13,8 @@
 		A01FF54A2BE4A39B005A5F63 /* EnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5492BE4A39B005A5F63 /* EnvironmentValues.swift */; };
 		A01FF5582BE4CB96005A5F63 /* DefaultCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5572BE4CB96005A5F63 /* DefaultCategory.swift */; };
 		A01FF5592BE4CB96005A5F63 /* DefaultCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5572BE4CB96005A5F63 /* DefaultCategory.swift */; };
-		A01FF55C2BE4CBA7005A5F63 /* DefaultBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55B2BE4CBA7005A5F63 /* DefaultBrand.swift */; };
-		A01FF55D2BE4CBA7005A5F63 /* DefaultBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55B2BE4CBA7005A5F63 /* DefaultBrand.swift */; };
+		A01FF55C2BE4CBA7005A5F63 /* DefaultBrands.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55B2BE4CBA7005A5F63 /* DefaultBrands.swift */; };
+		A01FF55D2BE4CBA7005A5F63 /* DefaultBrands.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55B2BE4CBA7005A5F63 /* DefaultBrands.swift */; };
 		A01FF5602BE4CBBA005A5F63 /* DefaultSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55F2BE4CBBA005A5F63 /* DefaultSymbols.swift */; };
 		A01FF5612BE4CBBA005A5F63 /* DefaultSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF55F2BE4CBBA005A5F63 /* DefaultSymbols.swift */; };
 		A01FF5652BE4CC08005A5F63 /* ManualDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01FF5632BE4CC08005A5F63 /* ManualDetail.swift */; };
@@ -106,6 +106,7 @@
 		A0246E8F2BE9900B00AF459E /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246E8D2BE9900B00AF459E /* Date+Ext.swift */; };
 		A0246ED82BE9A11E00AF459E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246ED72BE9A11E00AF459E /* LogManager.swift */; };
 		A0246ED92BE9C19A00AF459E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246ED72BE9A11E00AF459E /* LogManager.swift */; };
+		A0246EDB2BE9CD8300AF459E /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246EDA2BE9CD8300AF459E /* HomeViewModelTests.swift */; };
 		A02CFFAA2BE1987F0086B93B /* SymbolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */; };
 		A02CFFAE2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */; };
 		A02CFFC22BE2FE9B0086B93B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFC12BE2FE9B0086B93B /* FilterView.swift */; };
@@ -141,7 +142,7 @@
 		A01FF5412BE4795A005A5F63 /* GalleryQuickCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryQuickCreateView.swift; sourceTree = "<group>"; };
 		A01FF5492BE4A39B005A5F63 /* EnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentValues.swift; sourceTree = "<group>"; };
 		A01FF5572BE4CB96005A5F63 /* DefaultCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCategory.swift; sourceTree = "<group>"; };
-		A01FF55B2BE4CBA7005A5F63 /* DefaultBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBrand.swift; sourceTree = "<group>"; };
+		A01FF55B2BE4CBA7005A5F63 /* DefaultBrands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultBrands.swift; sourceTree = "<group>"; };
 		A01FF55F2BE4CBBA005A5F63 /* DefaultSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSymbols.swift; sourceTree = "<group>"; };
 		A01FF5632BE4CC08005A5F63 /* ManualDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualDetail.swift; sourceTree = "<group>"; };
 		A01FF5642BE4CC08005A5F63 /* ManualItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualItem.swift; sourceTree = "<group>"; };
@@ -182,6 +183,7 @@
 		A0246E8A2BE98FFB00AF459E /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		A0246E8D2BE9900B00AF459E /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		A0246ED72BE9A11E00AF459E /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
+		A0246EDA2BE9CD8300AF459E /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPicker.swift; sourceTree = "<group>"; };
 		A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerButton.swift; sourceTree = "<group>"; };
 		A02CFFC12BE2FE9B0086B93B /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -272,7 +274,7 @@
 		A0246DF72BE86FE100AF459E /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				A01FF55B2BE4CBA7005A5F63 /* DefaultBrand.swift */,
+				A01FF55B2BE4CBA7005A5F63 /* DefaultBrands.swift */,
 				A01FF5572BE4CB96005A5F63 /* DefaultCategory.swift */,
 				A01FF55F2BE4CBBA005A5F63 /* DefaultSymbols.swift */,
 			);
@@ -547,6 +549,7 @@
 			isa = PBXGroup;
 			children = (
 				A04ED5CA2BD72639007703DD /* UpkeepTests.swift */,
+				A0246EDA2BE9CD8300AF459E /* HomeViewModelTests.swift */,
 			);
 			path = UpkeepTests;
 			sourceTree = "<group>";
@@ -658,7 +661,7 @@
 				A01FF5832BE5A854005A5F63 /* Copy.swift in Sources */,
 				A0246E502BE935D400AF459E /* ManualItemViewModel.swift in Sources */,
 				A0246E692BE9460F00AF459E /* ToggleButtonViewModel.swift in Sources */,
-				A01FF55C2BE4CBA7005A5F63 /* DefaultBrand.swift in Sources */,
+				A01FF55C2BE4CBA7005A5F63 /* DefaultBrands.swift in Sources */,
 				A01FF57B2BE55F19005A5F63 /* SettingsView.swift in Sources */,
 				A0246E8E2BE9900B00AF459E /* Date+Ext.swift in Sources */,
 				A02CFFAA2BE1987F0086B93B /* SymbolPicker.swift in Sources */,
@@ -721,6 +724,7 @@
 				A0246E362BE923EB00AF459E /* HomeViewModel.swift in Sources */,
 				A0246E2F2BE8825E00AF459E /* GalleryItemViewModel.swift in Sources */,
 				A01FF5762BE536E3005A5F63 /* Appliance.swift in Sources */,
+				A0246EDB2BE9CD8300AF459E /* HomeViewModelTests.swift in Sources */,
 				A0246E012BE8736F00AF459E /* ApplianceDetailView.swift in Sources */,
 				A0246E862BE98FD000AF459E /* View+Ext.swift in Sources */,
 				A0246E5C2BE941B600AF459E /* TogglePickerViewModel.swift in Sources */,
@@ -753,7 +757,7 @@
 				A0246E172BE8750100AF459E /* ApplianceProtocolCarrier.swift in Sources */,
 				A0246E702BE9465000AF459E /* ToggleTextFieldViewModel.swift in Sources */,
 				A0246E1E2BE87E1300AF459E /* GalleryViewModel.swift in Sources */,
-				A01FF55D2BE4CBA7005A5F63 /* DefaultBrand.swift in Sources */,
+				A01FF55D2BE4CBA7005A5F63 /* DefaultBrands.swift in Sources */,
 				A0D66B432BE152B90045AE66 /* UpkeepApp.swift in Sources */,
 				A0246E512BE935D400AF459E /* ManualItemViewModel.swift in Sources */,
 				A01FF5862BE5ACB8005A5F63 /* FilterManager.swift in Sources */,

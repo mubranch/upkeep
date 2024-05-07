@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DefaultBrand: String, BrandProtocol, CaseIterable {
+enum DefaultBrands: String, BrandProtocol, CaseIterable {
     case samsung = "Samsung"
     case lg = "LG"
     case whirlpool = "Whirlpool"
@@ -210,7 +210,7 @@ enum DefaultBrand: String, BrandProtocol, CaseIterable {
     }
 }
 
-extension DefaultBrand: CodingKey {
+extension DefaultBrands: CodingKey {
     var stringValue: String {
         return rawValue.camelCase()
     }
