@@ -75,7 +75,7 @@ struct ApplianceDetailView: View {
             LabeledContent(Copy.Appliance.typeLabel) {
                 CategoryTogglePicker(viewModel: togglePickerViewModel)
             }.onChange(of: viewModel.appliance.category, initial: true) {
-                viewModel.appliance.symbol = viewModel.appliance.category?.symbol ?? .wrenchAndScrewdriverFill
+                viewModel.appliance.symbol = viewModel.appliance.category?.symbol ?? .generic
             }
             
             // Model number and serial number fields
@@ -134,4 +134,5 @@ struct ApplianceDetailView: View {
     container.mainContext.insert(app)
     return ApplianceDetailView(viewModel: ApplianceDetailViewModel(appliance: app, modelContext: container.mainContext), togglePickerViewModel: TogglePickerViewModel(selectedBrand: $app.brand, selectedCategory: $app.category, modelContext: container.mainContext))
         .modelContainer(container)
+        .environment(\.editMode, .constant(.active))
 }

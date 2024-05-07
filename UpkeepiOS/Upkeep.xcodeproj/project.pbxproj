@@ -107,6 +107,8 @@
 		A0246ED82BE9A11E00AF459E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246ED72BE9A11E00AF459E /* LogManager.swift */; };
 		A0246ED92BE9C19A00AF459E /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246ED72BE9A11E00AF459E /* LogManager.swift */; };
 		A0246EDB2BE9CD8300AF459E /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246EDA2BE9CD8300AF459E /* HomeViewModelTests.swift */; };
+		A0246EDF2BE9ECC800AF459E /* MaintenanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246EDE2BE9ECC800AF459E /* MaintenanceManager.swift */; };
+		A0246EE02BE9ECC800AF459E /* MaintenanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0246EDE2BE9ECC800AF459E /* MaintenanceManager.swift */; };
 		A02CFFAA2BE1987F0086B93B /* SymbolPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */; };
 		A02CFFAE2BE1F7010086B93B /* SymbolPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */; };
 		A02CFFC22BE2FE9B0086B93B /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02CFFC12BE2FE9B0086B93B /* FilterView.swift */; };
@@ -184,6 +186,7 @@
 		A0246E8D2BE9900B00AF459E /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		A0246ED72BE9A11E00AF459E /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		A0246EDA2BE9CD8300AF459E /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		A0246EDE2BE9ECC800AF459E /* MaintenanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManager.swift; sourceTree = "<group>"; };
 		A02CFFA92BE1987F0086B93B /* SymbolPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPicker.swift; sourceTree = "<group>"; };
 		A02CFFAD2BE1F7010086B93B /* SymbolPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolPickerButton.swift; sourceTree = "<group>"; };
 		A02CFFC12BE2FE9B0086B93B /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 				A01FF5842BE5ACB8005A5F63 /* FilterManager.swift */,
 				A01FF53D2BE473AC005A5F63 /* WebManager.swift */,
 				A0246ED72BE9A11E00AF459E /* LogManager.swift */,
+				A0246EDE2BE9ECC800AF459E /* MaintenanceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -697,6 +701,7 @@
 				A0246E3E2BE92CD300AF459E /* WebKitViewModel.swift in Sources */,
 				A01FF5652BE4CC08005A5F63 /* ManualDetail.swift in Sources */,
 				A01FF5422BE4795A005A5F63 /* GalleryQuickCreateView.swift in Sources */,
+				A0246EDF2BE9ECC800AF459E /* MaintenanceManager.swift in Sources */,
 				A0246E822BE98F7000AF459E /* SymbolPickerButtonViewModel.swift in Sources */,
 				A01FF5602BE4CBBA005A5F63 /* DefaultSymbols.swift in Sources */,
 				A0246ED82BE9A11E00AF459E /* LogManager.swift in Sources */,
@@ -755,6 +760,7 @@
 				A0246E132BE8736F00AF459E /* ManualDetail.swift in Sources */,
 				A0246DF82BE8706B00AF459E /* EnvironmentValues.swift in Sources */,
 				A0246E172BE8750100AF459E /* ApplianceProtocolCarrier.swift in Sources */,
+				A0246EE02BE9ECC800AF459E /* MaintenanceManager.swift in Sources */,
 				A0246E702BE9465000AF459E /* ToggleTextFieldViewModel.swift in Sources */,
 				A0246E1E2BE87E1300AF459E /* GalleryViewModel.swift in Sources */,
 				A01FF55D2BE4CBA7005A5F63 /* DefaultBrands.swift in Sources */,

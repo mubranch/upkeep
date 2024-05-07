@@ -30,7 +30,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    let container = try! ModelContainer(for: Appliance.self, Manual.self, Brand.self, Category.self, configurations: .init(isStoredInMemoryOnly: false))
+    let container = try! ModelContainer(for: Appliance.self, Manual.self, Brand.self, Category.self, configurations: .init(isStoredInMemoryOnly: true))
 
     return HomeView(viewModel: HomeViewModel(modelContext: container.mainContext))
         .modelContainer(container)
