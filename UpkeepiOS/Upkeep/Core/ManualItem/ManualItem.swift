@@ -23,7 +23,7 @@ struct ManualItem: View {
                 PDFViewer(viewModel: PDFViewerViewModel(manual: $0))
             })
             .swipeActions(edge: .trailing) {
-                Button("Delete", systemImage: "trash", action: viewModel.delete)
+                Button("Delete", systemImage: "trash", action: viewModel.deleteManual)
                     .tint(.red)
             }
             .contextMenu {

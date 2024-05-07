@@ -18,10 +18,15 @@ struct ApplianceDecodable {
     var modelNumber: String
 }
 
-struct WebManager {
+class WebManager {
     @Environment(\.webServiceEndpoint) var endpoint
 
-    var modelContext: ModelContext
+    let modelContext: ModelContext
+    private let logger = LogManager(subsystem: "com.upkeep.subsystem", category: "WebManager")
+
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
 
     var categories: [Category] {
         fetchEntities()
@@ -32,8 +37,10 @@ struct WebManager {
     }
 
     func fetchAppliance(brand: Brand, modelNumber: String) async -> Appliance? {
+        logger.logInfo("Attempting to fetch appliance data for brand: \(brand.name), modelNumber: \(modelNumber)")
         do {
             guard let url = URL(string: endpoint + "/\(brand.name)/\(modelNumber)") else {
+                logger.logError("Invalid URL constructed for brand: \(brand.name), modelNumber: \(modelNumber)")
                 throw URLError(.badURL)
             }
 
@@ -53,22 +60,23 @@ struct WebManager {
                                       modelNumber: decodableRepresentation.modelNumber)
 
             modelContext.insert(appliance)
-
+            logger.logInfo("Appliance successfully fetched and stored: \(appliance.name)")
             return appliance
 
         } catch {
-            print(error)
+            logger.logError("Error fetching appliance data: \(error.localizedDescription)")
             return nil
         }
     }
 
     func fetchApplianceTest() -> Appliance? {
+        logger.logInfo("Fetching test appliance data")
         let json = """
             {
-                "name":"KitchenAid KRFF507HPS",
-                "category":"refrigerator",
-                "brand":"KitchenAid",
-                "modelNumber":"KRFF507HPS"
+                "name": "KitchenAid KRFF507HPS",
+                "category": "refrigerator",
+                "brand": "KitchenAid",
+                "modelNumber": "KRFF507HPS"
             }
         """
 
@@ -87,16 +95,17 @@ struct WebManager {
                                       modelNumber: decodableRepresentation.modelNumber)
 
             modelContext.insert(appliance)
-
+            logger.logInfo("Test appliance data fetched and stored: \(appliance.name)")
             return appliance
 
         } catch {
-            print(error)
+            logger.logError("Error fetching test appliance data: \(error.localizedDescription)")
             return nil
         }
     }
 
     func fetchEntities<T: PersistentModel>() -> [T] {
+        logger.logInfo("Fetching entities of type \(T.self)")
         let fetchRequest = FetchDescriptor<T>()
         return (try? modelContext.fetch(fetchRequest)) ?? []
     }
@@ -106,7 +115,6 @@ struct WebManager {
             throw NSError(domain: "InvalidData", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON data"])
         }
 
-        // Decode each key individually
         let name: String = try decodeKey(key: "name", json: jsonObject)
         let categoryTitle: String = try decodeKey(key: "category", json: jsonObject)
         let brandName: String = try decodeKey(key: "brand", json: jsonObject)
@@ -122,40 +130,26 @@ struct WebManager {
     }
 
     func checkForCategory(with title: String) -> Category {
-        return {
-            let results = self.categories.filter {
-                let existIngCategory = $0.rawValue.camelCase() == title.camelCase()
-                if existIngCategory {
-                    print("Category exists")
-                    return true
-                } else {
-                    return false
-                }
-            }
-
-            if !results.isEmpty {
-                return results.first!
-            } else {
-                let category = Category(title: title)
-                self.modelContext.insert(category)
-                return category
-            }
-        }()
+        let results = categories.filter { $0.rawValue.camelCase() == title.camelCase() }
+        if !results.isEmpty {
+            return results.first!
+        } else {
+            let category = Category(title: title)
+            modelContext.insert(category)
+            logger.logInfo("New category added: \(title)")
+            return category
+        }
     }
 
     func checkForBrand(with name: String) -> Brand {
-        return {
-            let results = self.brands.filter {
-                $0.rawValue.camelCase().lowercased() == name.camelCase().lowercased()
-            }
-
-            if !results.isEmpty {
-                return results.first!
-            } else {
-                let brand = Brand(name: name)
-                self.modelContext.insert(brand)
-                return brand
-            }
-        }()
+        let results = brands.filter { $0.rawValue.camelCase().lowercased() == name.camelCase().lowercased() }
+        if !results.isEmpty {
+            return results.first!
+        } else {
+            let brand = Brand(name: name)
+            modelContext.insert(brand)
+            logger.logInfo("New brand added: \(name)")
+            return brand
+        }
     }
 }

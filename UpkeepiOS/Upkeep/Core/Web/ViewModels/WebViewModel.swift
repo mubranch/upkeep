@@ -13,8 +13,10 @@ class WebViewModel: ObservableObject {
     @Published var shouldDismiss = false
     @Published var newManual: Manual?
 
-    var modelContext: ModelContext
+    let modelContext: ModelContext
     var defaultUrl: URL
+
+    private let logger = LogManager(subsystem: "com.upkeep.subsystem", category: "WebViewModel")
 
     init(appliance: Appliance,
          modelContext: ModelContext,

@@ -33,18 +33,15 @@ final class Brand: BrandProtocol {
         }
     }
 
-    // Implementing Codable manually if you don't want to include 'formattedRawValue' in encoding/decoding.
     private enum CodingKeys: String, CodingKey {
         case name
     }
 
-    // Implement init(from:) to decode the data.
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
     }
 
-    // Implement encode(to:) to encode the data.
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.name, forKey: .name)

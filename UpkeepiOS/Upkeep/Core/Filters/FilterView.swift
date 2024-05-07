@@ -15,7 +15,7 @@ struct FilterView: View {
         Menu {
             ForEach(viewModel.filteredBrands) { brand in
                 Button(action: { viewModel.filter(for: brand) }) {
-                    if viewModel.isActive(brand) {
+                    if viewModel.filteredBrands.contains(where: { $0 == brand }) {
                         Label(brand.name, systemImage: Copy.SimpleFilter.selectedBrandSymbol)
                     } else {
                         Text(brand.name)
